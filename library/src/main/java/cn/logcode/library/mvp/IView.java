@@ -1,5 +1,7 @@
 package cn.logcode.library.mvp;
 
+import cn.logcode.library.http.NetworkLoadProcess;
+
 /**
  * Created by CaostGrace on 2018/6/5 22:20
  *
@@ -10,18 +12,19 @@ package cn.logcode.library.mvp;
  * @简书: http://www.jianshu.com/u/b252a19d88f3
  * @content:
  */
-public interface IView<T extends IDelegate> {
+public interface IView<T extends IDelegate>{
 
     void onAttach(T t,boolean isFragment);
 
-    void onCreate();
 
-    void showLoadingView(String str);
-    void hideLoadingView();
-    void showErrorView(String str);
-    void hideErrorView();
+    void loadStart(String msg);
 
-    void showErrorMsg(String str);
+
+    void loadEnd();
+
+
+    void loadError(int code, String errorMSg);
+
 
     void deAttach();
 }

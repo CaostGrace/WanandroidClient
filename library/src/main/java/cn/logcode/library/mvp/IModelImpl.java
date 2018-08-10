@@ -18,7 +18,7 @@ import io.reactivex.disposables.Disposable;
  * @简书: http://www.jianshu.com/u/b252a19d88f3
  * @content:
  */
-public class BaseModel implements IModel {
+public class IModelImpl implements IModel {
 
 
     protected CompositeDisposable mCompositeDisposable;
@@ -27,27 +27,13 @@ public class BaseModel implements IModel {
 
     public Context mContext;
 
-    public HttpManager mHttpManager;
-
-    public String basrUrl = "";
 
     @Override
     public void onAttach(IDelegate delegate) {
         mDelegate = delegate;
         mContext = delegate.getContext();
         mCompositeDisposable = new CompositeDisposable();
-        if(ApplicationLibrary.INSTANCE != null){
-            basrUrl =  ApplicationLibrary.INSTANCE.getBaseUrl();
-        }
-        if(basrUrl.equals("")){
-            basrUrl = getHttpBaseUrl();
-            if(basrUrl.equals("")){
-                throw new IllegalStateException("使用mvp模式，需要继承ApplicationLibrary重写getBaseUrl方法返回BaseUrl 或者重写BaseModel的getHttpBaseUrl方法");
-            }
-        }
-        if(mHttpManager == null){
-            mHttpManager = HttpManager.getInstance(basrUrl);
-        }
+
     }
 
 
@@ -73,13 +59,6 @@ public class BaseModel implements IModel {
             mCompositeDisposable.dispose();
             mCompositeDisposable = null;
         }
-    }
-         
-
-
-
-    public String getHttpBaseUrl(){
-        return "";
     }
 
 }

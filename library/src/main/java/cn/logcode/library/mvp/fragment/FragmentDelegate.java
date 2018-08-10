@@ -15,6 +15,7 @@ import cn.logcode.library.mvp.IDelegate;
 import cn.logcode.library.mvp.activity.ActivityDelegate;
 import cn.logcode.library.mvp.IModel;
 import cn.logcode.library.mvp.IView;
+import cn.logcode.library.utils.CheckUtils;
 
 /**
  * Created by CaostGrace on 2018/6/14 9:54
@@ -28,7 +29,6 @@ import cn.logcode.library.mvp.IView;
  */
 public abstract class FragmentDelegate<V extends IView, M extends IModel> extends Fragment implements IDelegate {
 
-    private boolean isFrist = true;
 
     protected V mView;
     protected M mModel;
@@ -53,7 +53,6 @@ public abstract class FragmentDelegate<V extends IView, M extends IModel> extend
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         try {
             mView = (V) getViewClass().newInstance();
             mModel = (M) getModelClass().newInstance();
@@ -63,7 +62,6 @@ public abstract class FragmentDelegate<V extends IView, M extends IModel> extend
             e.printStackTrace();
         }
         mModel.onAttach(this);
-
 
     }
 
@@ -80,36 +78,18 @@ public abstract class FragmentDelegate<V extends IView, M extends IModel> extend
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         parent = inflater.inflate(getLayoutId(), null);
+        mUnbinder = ButterKnife.bind(this, parent);
         mView.onAttach(this, true);
         init();
         return parent;
     }
 
-    public void init() {
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (isFrist) {
-            isFrist = false;
-            mUnbinder = ButterKnife.bind(this, parent);
-            mView.onCreate();
-            doSomething();
-        }
-
-    }
-
-    public void doSomething() {
-    }
+    public abstract void init();
 
     @Override
     public void onDetach() {
-        try {
-
+        if (CheckUtils.checkNotNull(mUnbinder)) {
             mUnbinder.unbind();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
         }
         mView.deAttach();
         mModel.deAttach();

@@ -23,7 +23,7 @@ import cn.logcode.library.Log.LogUtils;
  * @简书: http://www.jianshu.com/u/b252a19d88f3
  * @content:
  */
-public abstract class BaseView implements IView {
+public abstract class IviewImpl implements IView {
     public View rootView;
 
     public IDelegate mDelegate;
@@ -73,11 +73,6 @@ public abstract class BaseView implements IView {
         initView();
     }
 
-    @Override
-    public void onCreate() {
-
-
-    }
 
     @Override
     public void deAttach() {
@@ -87,7 +82,6 @@ public abstract class BaseView implements IView {
         rootView = null;
     }
 
-    //这里面不能使用ButterKnife
     public void initView(){}
 
 }

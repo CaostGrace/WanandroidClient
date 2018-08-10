@@ -15,6 +15,7 @@ public class CheckUtils {
 
     /**
      * 检测string 是否为空或者为空字符串
+     *
      * @param str
      * @return
      */
@@ -27,6 +28,7 @@ public class CheckUtils {
 
     /**
      * 检测 str 与  equalsStr 是否相等
+     *
      * @param str
      * @param equalsStr
      * @return
@@ -43,14 +45,29 @@ public class CheckUtils {
 
     /**
      * 检测不为空
+     *
      * @param obj
      * @return
      */
-    public static boolean checkIsNull(Object obj){
-        if(obj == null){
+    public static boolean checkIsNull(Object obj) {
+        if (obj == null) {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * 检测不为空
+     *
+     * @param obj
+     * @return
+     */
+    public static boolean checkNotNull(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -12,6 +12,7 @@ import cn.logcode.library.mvp.IDelegate;
 import cn.logcode.library.mvp.IModel;
 import cn.logcode.library.mvp.IView;
 import cn.logcode.library.utils.ActivityUtils;
+import cn.logcode.library.utils.CheckUtils;
 
 /**
  * Created by CaostGrace on 2018/6/6 20:08
@@ -25,7 +26,6 @@ import cn.logcode.library.utils.ActivityUtils;
  */
 public abstract class ActivityDelegate<V extends IView, M extends IModel> extends AppCompatActivity implements IDelegate {
 
-    private boolean isFrist = true;
 
     protected V mView;
     protected M mModel;
@@ -42,7 +42,6 @@ public abstract class ActivityDelegate<V extends IView, M extends IModel> extend
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityUtils.addActivity(this);
         try {
             mView = (V) getViewClass().newInstance();
             mModel = (M) getModelClass().newInstance();
@@ -69,28 +68,19 @@ public abstract class ActivityDelegate<V extends IView, M extends IModel> extend
     public void setContentView(int layoutResID) {
         parent = View.inflate(this, layoutResID, null);
         super.setContentView(parent);
+        mUnbinder = ButterKnife.bind(this);
         mView.onAttach(this, false);
+
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (isFrist) {
-            isFrist = false;
-            mUnbinder = ButterKnife.bind(this);
-            mView.onCreate();
-        }
-    }
 
     @Override
     protected void onDestroy() {
         mView.deAttach();
         mModel.deAttach();
-        if (mUnbinder != null) {
+        if (CheckUtils.checkNotNull(mUnbinder)) {
             mUnbinder.unbind();
         }
-        ActivityUtils.removeActivity(this);
         super.onDestroy();
     }
 

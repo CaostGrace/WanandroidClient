@@ -1,9 +1,8 @@
-package cn.logcode.library.utils;
+package cn.logcode.library.widget;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
@@ -12,8 +11,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,6 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
 
 import cn.logcode.library.R;
+import cn.logcode.library.utils.UIUtils;
 
 
 /**
