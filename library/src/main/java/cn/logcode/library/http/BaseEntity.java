@@ -1,11 +1,11 @@
 package cn.logcode.library.http;
 
 import com.google.gson.annotations.SerializedName;
-import com.j256.ormlite.field.DatabaseField;
 
 /**
  * Created by CaostGrace on 2018/5/28 21:50
  *
+ * @author caost
  * @project_name: FrameworkDemo
  * @package_name: cn.logcode.library.http
  * @class_name: BaseEntity
@@ -13,8 +13,8 @@ import com.j256.ormlite.field.DatabaseField;
  * @简书: http://www.jianshu.com/u/b252a19d88f3
  * @content:
  */
-public class BaseEntity<R> {
 
+public class BaseEntity<R> {
     @SerializedName("status")
     public int status;
     @SerializedName("msg")

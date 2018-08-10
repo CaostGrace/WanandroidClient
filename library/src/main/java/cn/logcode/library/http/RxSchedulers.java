@@ -1,9 +1,7 @@
 package cn.logcode.library.http;
 
-import android.widget.Toast;
-
-import cn.logcode.library.Log.LogUtils;
-import cn.logcode.library.utils.Utils;
+import cn.logcode.basemodule.config.HttpConfig;
+import cn.logcode.commandcore.utils.CheckUtils;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
@@ -16,6 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by CaostGrace on 2018/5/28 21:51
  *
+ * @author caost
  * @project_name: FrameworkDemo
  * @package_name: cn.logcode.library.http
  * @class_name: RxSchedulers
@@ -34,22 +33,75 @@ public class RxSchedulers {
                         .map(new Function<BaseEntity<R>, R>() {
                             @Override
                             public R apply(BaseEntity<R> entity) throws Exception {
-                                return entity.data;
+
+                                if (entity.status == HttpConfig.REQUEST_SUCCESS) {
+                                    return entity.data;
+                                }
+                                throw new ApiException(entity.status, entity.msg);
                             }
                         });
             }
         };
 
-//        return (Observable<BaseEntity<R>> upstream) -> {
-//            return upstream.subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .map((BaseEntity<R> t) -> t.data);
-//        };
     }
 
 
+    public static <R> ObservableTransformer<BaseEntity<R>, R> compose(final NetworkLoadProcess networkLoadProcess) {
+        return new ObservableTransformer<BaseEntity<R>, R>() {
+            @Override
+            public ObservableSource<R> apply(Observable<BaseEntity<R>> upstream) {
+                return upstream.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe(new Consumer<Disposable>() {
+                            @Override
+                            public void accept(Disposable disposable) throws Exception {
+                                if (!CheckUtils.checkIsNull(networkLoadProcess)) {
+                                    networkLoadProcess.networkRequestStart("加载中...");
+                                }
+                            }
+                        })
+                        .map(new Function<BaseEntity<R>, R>() {
+                            @Override
+                            public R apply(BaseEntity<R> entity) throws Exception {
+                                if (entity.status == HttpConfig.REQUEST_SUCCESS) {
+                                    return entity.data;
+                                }
+                                throw new ApiException(entity.status, entity.msg);
+                            }
+                        })
+                        .doOnError(new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                throwable.printStackTrace();
+                                if (!CheckUtils.checkIsNull(networkLoadProcess)) {
+                                    networkLoadProcess.networkRequestEnd();
 
-    public static <T> ObservableTransformer<T,T> defaultCompose(){
+                                    if (throwable instanceof ApiException) {
+                                        ApiException apiException = (ApiException) throwable;
+                                        networkLoadProcess.networkRequestError(apiException.code, apiException.msg);
+                                    } else {
+                                        networkLoadProcess.networkRequestError(404, "服务器错误");
+                                    }
+
+                                }
+                            }
+                        })
+                        .doOnNext(new Consumer<R>() {
+                            @Override
+                            public void accept(R r) throws Exception {
+                                if (!CheckUtils.checkIsNull(networkLoadProcess)) {
+                                    networkLoadProcess.networkRequestEnd();
+                                }
+                            }
+                        })
+                        ;
+            }
+        };
+
+    }
+
+
+    public static <T> ObservableTransformer<T, T> defaultCompose() {
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> upstream) {

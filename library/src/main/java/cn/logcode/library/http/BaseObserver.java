@@ -1,15 +1,15 @@
 package cn.logcode.library.http;
 
-import cn.logcode.library.Log.LogUtils;
-import cn.logcode.library.mvp.IView;
-import cn.logcode.library.utils.ToastUtil;
-import cn.logcode.library.utils.Utils;
+import cn.logcode.commandcore.service.ICoreApplication;
+import cn.logcode.commandcore.utils.CheckUtils;
+import cn.logcode.commandcore.utils.NetworkUtils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
  * Created by CaostGrace on 2018/6/14 12:20
  *
+ * @author caost
  * @project_name: graceLibrary
  * @package_name: cn.logcode.library.http
  * @class_name: BaseObserver
@@ -20,67 +20,71 @@ import io.reactivex.disposables.Disposable;
 public abstract class BaseObserver<T> implements Observer<T> {
     private static final String TAG = "BaseObserver";
 
+    protected Disposable mDisposable;
 
-    private Disposable mDisposable;
+    protected NetworkLoadProcess mNetworkLoadProcess;
+
 
     public Disposable getDisposable() {
         return mDisposable;
     }
 
-    protected IView mView;
-
-    public BaseObserver(IView iView){
-        this.mView = iView;
+    public BaseObserver(NetworkLoadProcess networkLoadProcess) {
+        mNetworkLoadProcess = networkLoadProcess;
     }
 
-    public BaseObserver(){}
+
+    public BaseObserver() {
+    }
 
 
     @Override
     public void onSubscribe(Disposable d) {
         mDisposable = d;
 
-        if(!Utils.isNetworkConnected()) {
-            LogUtils.d("无网络连接");
-            if(mView != null){
+        if (!CheckUtils.checkIsNull(mNetworkLoadProcess)) {
 
-                mView.showErrorMsg("无网络连接");
-                d.dispose();
+            if (NetworkUtils.isNetworkConnected(ICoreApplication.getContext())) {
+                mNetworkLoadProcess.networkRequestStart("加载中...");
+            } else {
+                mDisposable.dispose();
+                onError(new ApiException(ApiException.NETWORK_ERROR, "网络连接错误"));
             }
-            return;
+
         }
-        if(mView != null){
-            mView.showLoadingView("加载中");
-            LogUtils.d("加载框");
-        }
+
+
     }
 
 
-
     @Override
-    public void onError(Throwable e) {
-        LogUtils.e(TAG, "error:" + e.toString());
-        LogUtils.e("error====>"+e.getMessage());
-        if(mView != null){
-            mView.hideLoadingView();
-            mView.showErrorMsg(e.getMessage());
-            LogUtils.d("error:" + e.toString());
+    public void onError(Throwable throwable) {
+        throwable.printStackTrace();
+        if (!CheckUtils.checkIsNull(mNetworkLoadProcess)) {
+            mNetworkLoadProcess.networkRequestEnd();
+            if (throwable instanceof ApiException) {
+                ApiException apiException = (ApiException) throwable;
+                mNetworkLoadProcess.networkRequestError(apiException.code, apiException.msg);
+                onHandleError(apiException.code, apiException.msg);
+            } else {
+                mNetworkLoadProcess.networkRequestError(ApiException.UNKNOWN_ERROR, throwable.getMessage());
+                onHandleError(ApiException.UNKNOWN_ERROR, throwable.getMessage());
+            }
+
         }
-
-
-        onHandleError(404,"连接不到服务器");
     }
 
     @Override
     public void onComplete() {
-//        LogUtils.d("onComplete" );
     }
 
-    protected void onHandleError(int code,String msg) {
-        LogUtils.d("Error===>",msg);
-
-
+    /**
+     * 请求错误
+     *
+     * @param code
+     * @param msg
+     */
+    protected void onHandleError(int code, String msg) {
 
     }
-
 }

@@ -1,14 +1,11 @@
 package cn.logcode.library.http;
 
-import cn.logcode.library.Log.LogUtils;
-import cn.logcode.library.mvp.IView;
-import cn.logcode.library.utils.Utils;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import cn.logcode.commandcore.utils.CheckUtils;
 
 /**
  * Created by CaostGrace on 2018/6/7 21:23
  *
+ * @author caost
  * @project_name: FrameworkDemo
  * @package_name: cn.logcode.library.http
  * @class_name: DefaultObserver
@@ -16,34 +13,38 @@ import io.reactivex.disposables.Disposable;
  * @简书: http://www.jianshu.com/u/b252a19d88f3
  * @content:
  */
-public abstract class DefaultObserver<T extends BaseEntity> extends BaseObserver<T> {
+public abstract class DefaultObserver<T> extends BaseObserver<T> {
 
     public static final String TAG = DefaultObserver.class.getSimpleName();
 
 
-    public DefaultObserver(){
+    public DefaultObserver() {
         super();
     }
 
-    public DefaultObserver(IView iView){
-        super(iView);
+
+    public DefaultObserver(NetworkLoadProcess networkLoadProcess) {
+        super(networkLoadProcess);
     }
+
 
     @Override
     public void onNext(T t) {
-        if (mView != null){
-            mView.hideLoadingView();
-            LogUtils.d("取消加载框");
+        if (!CheckUtils.checkIsNull(mNetworkLoadProcess)) {
+            mNetworkLoadProcess.networkRequestEnd();
         }
-        if(t.status == 0){
-
-            onHandleSuccess(t);
-        }    else {
-            onHandleError(t.status,t.msg);
-        }
-
-
+        onHandleSuccess(t);
     }
 
+
+
+    /**
+     * 成功
+     *
+     * @param t
+     */
     public abstract void onHandleSuccess(T t);
+
+
+
 }
