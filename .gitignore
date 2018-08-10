@@ -12,4 +12,5 @@
 .externalNativeBuild
 /app/build
 /library/build
+/androidarchitecturecomponents
 
