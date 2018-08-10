@@ -1,5 +1,8 @@
 package cn.logcode.library.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by CaostGrace on 2018/8/9 15:59
  *
@@ -12,7 +15,7 @@ package cn.logcode.library.config;
  * @content:
  */
 public class HttpConfig {
-    public static final String BASE_URL = "http://www.wanandroid.com/";
+    public static String BASE_URL = "http://www.wanandroid.com/";
 
     public static final String DYNAMIC_NAME = "dynamic";
 
@@ -22,8 +25,7 @@ public class HttpConfig {
     /**
      * 请求成功码
      */
-    public static final int REQUEST_SUCCESS = 0 ;
-
+    public static int REQUEST_SUCCESS = 0;
 
 
 }

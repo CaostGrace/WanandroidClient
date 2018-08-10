@@ -14,4 +14,5 @@ package cn.logcode.library.config;
 public class AppConfig {
     public static String BUGLY_APPID = "";
     public static boolean IS_OPEN_LITEPAL = true;
+    public static boolean IS_OPEN_LEAKCANARY = true;
 }

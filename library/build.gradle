@@ -64,6 +64,10 @@ dependencies {
     api rootProject.ext.dependencies.alerter
     api rootProject.ext.dependencies.logging_interceptor
 
+    debugImplementation rootProject.ext.dependencies.leakcanary_android
+    releaseImplementation rootProject.ext.dependencies.leakcanary_android_release
+    // Optional, if you use support library fragments:
+    debugImplementation rootProject.ext.dependencies.leakcanary_support_debug
 
 }
 repositories {

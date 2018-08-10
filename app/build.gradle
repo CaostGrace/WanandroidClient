@@ -127,4 +127,7 @@ dependencies {
     api rootProject.ext.dependencies.multidex
     api rootProject.ext.dependencies.support_v4
     api rootProject.ext.dependencies.recyclerview_v7
+
+
+    api project(":library")
 }

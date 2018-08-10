@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.logcode.library.config.HttpConfig;
 import cn.logcode.library.utils.CheckUtils;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -41,16 +42,48 @@ public class HttpManager<T> {
         return baseUrl;
     }
 
-    public static HttpManager getInstance(String base_url) {
+    public static HttpManager getInstance() {
+
         if (DEFAULT == null) {
             DEFAULT = new Builder()
-                    .baseUrl(base_url)
+                    .baseUrl(HttpConfig.BASE_URL)
                     .build();
-            baseUrl = base_url;
+            baseUrl = HttpConfig.BASE_URL;
         }
         return DEFAULT;
     }
 
+
+    public static void init() {
+        if (DEFAULT == null) {
+            DEFAULT = new Builder()
+                    .baseUrl(HttpConfig.BASE_URL)
+                    .build();
+            baseUrl = HttpConfig.BASE_URL;
+        }
+    }
+
+    public static void init(Class<?> cls) {
+        if (DEFAULT == null) {
+            DEFAULT = new Builder()
+                    .baseUrl(HttpConfig.BASE_URL)
+                    .build();
+            baseUrl = HttpConfig.BASE_URL;
+        }
+        DEFAULT.createApi(cls);
+    }
+
+
+    public T getService() {
+        if (CheckUtils.checkNotNull(service)) {
+            return service;
+        }
+        return null;
+    }
+
+    public static void setHttpManager(HttpManager httpManager) {
+        DEFAULT = httpManager;
+    }
 
     public static Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -64,7 +97,6 @@ public class HttpManager<T> {
     public Gson getGson() {
         return gson;
     }
-
 
     private HttpManager(OkHttpClient client, Retrofit retrofit) {
         this.client = client;
@@ -165,6 +197,7 @@ public class HttpManager<T> {
             return this;
         }
 
+        OkHttpClient.Builder builder;
 
         public HttpManager build() {
 
@@ -179,7 +212,7 @@ public class HttpManager<T> {
 
             if (client == null) {
 
-                OkHttpClient.Builder builder = new OkHttpClient
+                builder = new OkHttpClient
                         .Builder()
                         .connectTimeout(5, TimeUnit.SECONDS)
                         .readTimeout(5, TimeUnit.SECONDS)

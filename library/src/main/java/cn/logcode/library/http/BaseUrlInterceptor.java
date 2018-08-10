@@ -34,8 +34,6 @@ public class BaseUrlInterceptor implements Interceptor {
 
             String url = request.url().toString();
 
-//            url = url.replace(HttpManager.getBaseUrl(), dynamic);
-
             url = url.replace(HttpConfig.BASE_URL, dynamic);
 
 

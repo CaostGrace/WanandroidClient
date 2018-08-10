@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.WindowManager;
@@ -21,13 +22,15 @@ import cn.logcode.library.ApplicationLibrary;
  */
 
 public class UIUtils {
-    static  Context mContext;
+    static Context mContext;
 
-    public static void init(Application application){
-        mContext = application.getApplicationContext();
-    }
 
     public static Context getContext() {
+
+        if (mContext == null) {
+            mContext = ApplicationLibrary.getContext();
+        }
+
         return mContext;
     }
 
@@ -37,6 +40,7 @@ public class UIUtils {
 
     /**
      * 获取颜色值
+     *
      * @param resId 颜色资源id
      * @return 颜色值
      */
@@ -57,6 +61,7 @@ public class UIUtils {
 
     /**
      * 获取Drawable
+     *
      * @param resTd Drawable资源id
      * @return Drawable
      */
@@ -66,6 +71,7 @@ public class UIUtils {
 
     /**
      * 获取字符串
+     *
      * @param resId 字符串资源id
      * @return 字符串
      */
@@ -75,6 +81,7 @@ public class UIUtils {
 
     /**
      * 获取字符串数组
+     *
      * @param resId 数组资源id
      * @return 字符串数组
      */
@@ -84,6 +91,7 @@ public class UIUtils {
 
     /**
      * 将dp值转换为px值
+     *
      * @param dp 需要转换的dp值
      * @return px值
      */
@@ -93,6 +101,7 @@ public class UIUtils {
 
     /**
      * 将px值转换为dp值
+     *
      * @param px 需要转换的px值
      * @return dp值
      */
@@ -115,6 +124,7 @@ public class UIUtils {
 
     /**
      * 获取屏幕宽度 像素值
+     *
      * @return 屏幕宽度
      */
     public static int getScreenWidth() {
@@ -123,6 +133,7 @@ public class UIUtils {
 
     /**
      * 获取屏幕高度 像素值
+     *
      * @return 屏幕高度
      */
     public static int getScreenHegith() {

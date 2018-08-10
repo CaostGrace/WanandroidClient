@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.Bugly;
 
 import org.litepal.LitePal;
@@ -12,6 +13,8 @@ import org.litepal.LitePalApplication;
 
 import cn.logcode.library.Log.LogUtils;
 import cn.logcode.library.config.AppConfig;
+import cn.logcode.library.config.HttpConfig;
+import cn.logcode.library.service.LibraryService;
 import cn.logcode.library.utils.ActivityUtils;
 
 /**
@@ -64,6 +67,21 @@ public class ApplicationLibrary extends Application {
             LitePal.initialize(application);
         }
 
+        /**
+         * 是否打开内存泄漏 检查
+         */
+        if (AppConfig.IS_OPEN_LEAKCANARY && BuildConfig.DEBUG) {
+            if (LeakCanary.isInAnalyzerProcess(application)) {
+                // This process is dedicated to LeakCanary for heap analysis.
+                // You should not init your app in this process.
+                return;
+            }
+            LeakCanary.install(application);
+        }
+
+
+        LibraryService.init(application.getApplicationContext());
+
         //生命周期回调
         application.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
@@ -106,7 +124,7 @@ public class ApplicationLibrary extends Application {
     }
 
 
-    static class Builder {
+    public static class Builder {
         private String buglyId = "";
         private boolean isOpenLitepal = false;
 
@@ -124,6 +142,16 @@ public class ApplicationLibrary extends Application {
             isOpenLitepal = false;
         }
 
+
+        public Builder baseUrl(String baseurl) {
+            HttpConfig.BASE_URL = baseurl;
+            return this;
+        }
+
+        public Builder openLeakcanary(boolean isOpen) {
+            AppConfig.IS_OPEN_LEAKCANARY = isOpen;
+            return this;
+        }
 
         public Builder buglyId(String buglyId) {
             this.buglyId = buglyId;
