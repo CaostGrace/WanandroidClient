@@ -1,7 +1,7 @@
 package cn.logcode.library.http;
 
-import cn.logcode.basemodule.config.HttpConfig;
-import cn.logcode.commandcore.utils.CheckUtils;
+import cn.logcode.library.config.HttpConfig;
+import cn.logcode.library.utils.CheckUtils;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;

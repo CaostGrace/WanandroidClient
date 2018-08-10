@@ -21,38 +21,4 @@ import cn.logcode.library.Log.LogUtils;
  */
 public class Utils {
 
-    public static boolean isNetworkConnected(){
-        ConnectivityManager connectivityManager = (ConnectivityManager) ApplicationLibrary.INSTANCE.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo == null){
-            return false;
-        }
-        //MOBILE
-        //WIFI
-//        LogUtils.d(networkInfo.getTypeName());
-        if(networkInfo.isConnected()){
-//            LogUtils.d("connected");
-            return true;
-        }
-
-        return false;
-    }
-
-    public static boolean isWIFIConnected(Context context){
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo == null){
-            return false;
-        }
-        //MOBILE
-        //WIFI
-        LogUtils.d(networkInfo.getTypeName());
-        if(networkInfo.getType() == ConnectivityManager.TYPE_WIFI){
-            LogUtils.d(networkInfo.getTypeName());
-            return true;
-        }
-
-        return false;
-    }
-
 }

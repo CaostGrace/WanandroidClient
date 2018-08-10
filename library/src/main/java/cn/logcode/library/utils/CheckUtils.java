@@ -1,4 +1,4 @@
-package cn.logcode.commandcore.utils;
+package cn.logcode.library.utils;
 
 /**
  * Created by CaostGrace on 2018/8/9 14:23

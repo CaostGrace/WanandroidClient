@@ -1,12 +1,10 @@
 package cn.logcode.library.http;
 
-import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 
-import cn.logcode.basemodule.config.HttpConfig;
-import cn.logcode.commandcore.Log.LogUtils;
-import cn.logcode.commandcore.utils.CheckUtils;
+import cn.logcode.library.config.HttpConfig;
+import cn.logcode.library.utils.CheckUtils;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;

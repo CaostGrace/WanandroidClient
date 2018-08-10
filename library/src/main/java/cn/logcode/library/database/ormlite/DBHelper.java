@@ -1,4 +1,4 @@
-package cn.logcode.library.database;
+package cn.logcode.library.database.ormlite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

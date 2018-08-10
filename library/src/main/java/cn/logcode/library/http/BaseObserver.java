@@ -1,8 +1,8 @@
 package cn.logcode.library.http;
 
-import cn.logcode.commandcore.service.ICoreApplication;
-import cn.logcode.commandcore.utils.CheckUtils;
-import cn.logcode.commandcore.utils.NetworkUtils;
+import cn.logcode.library.ApplicationLibrary;
+import cn.logcode.library.utils.CheckUtils;
+import cn.logcode.library.utils.NetworkUtils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -44,7 +44,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
         if (!CheckUtils.checkIsNull(mNetworkLoadProcess)) {
 
-            if (NetworkUtils.isNetworkConnected(ICoreApplication.getContext())) {
+            if (NetworkUtils.isNetworkConnected(ApplicationLibrary.getContext())) {
                 mNetworkLoadProcess.networkRequestStart("加载中...");
             } else {
                 mDisposable.dispose();

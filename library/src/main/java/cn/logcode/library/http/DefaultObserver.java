@@ -1,6 +1,7 @@
 package cn.logcode.library.http;
 
-import cn.logcode.commandcore.utils.CheckUtils;
+
+import cn.logcode.library.utils.CheckUtils;
 
 /**
  * Created by CaostGrace on 2018/6/7 21:23

@@ -1,7 +1,7 @@
 package cn.logcode.library.http;
 
 
-import cn.logcode.basemodule.config.HttpConfig;
+import cn.logcode.library.config.HttpConfig;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

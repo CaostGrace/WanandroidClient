@@ -1,4 +1,4 @@
-package cn.logcode.basemodule.config;
+package cn.logcode.library.config;
 
 /**
  * Created by CaostGrace on 2018/8/9 15:59

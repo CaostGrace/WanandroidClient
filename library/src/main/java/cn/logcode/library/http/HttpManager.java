@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import cn.logcode.commandcore.utils.CheckUtils;
+import cn.logcode.library.utils.CheckUtils;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -27,13 +27,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @class_name: HttpManager
  * @github: https://github.com/CaostGrace
  * @简书: http://www.jianshu.com/u/b252a19d88f3
- * @content:
+ * @content: 网络请求管理
  */
-public class HttpManager<A> {
+public class HttpManager<T> {
 
     private static HttpManager DEFAULT = null;
 
-    private A service;
+    private T service;
 
     private static String baseUrl;
 
@@ -43,7 +43,7 @@ public class HttpManager<A> {
 
     public static HttpManager getInstance(String base_url) {
         if (DEFAULT == null) {
-            DEFAULT = newBuilder()
+            DEFAULT = new Builder()
                     .baseUrl(base_url)
                     .build();
             baseUrl = base_url;
@@ -52,12 +52,10 @@ public class HttpManager<A> {
     }
 
 
-
     public static Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             .serializeNulls()
             .create();
-
 
 
     private OkHttpClient client;
@@ -68,19 +66,18 @@ public class HttpManager<A> {
     }
 
 
-
-
     private HttpManager(OkHttpClient client, Retrofit retrofit) {
         this.client = client;
         this.retrofit = retrofit;
         baseUrl = retrofit.baseUrl().toString();
     }
 
+    @Deprecated
     public Builder newBuilder() {
         return new Builder(client, retrofit);
     }
 
-    public A createApi(Class<A> cls) {
+    public T createApi(Class<T> cls) {
         if (CheckUtils.checkIsNull(service)) {
             synchronized (DEFAULT) {
                 if (CheckUtils.checkIsNull(service)) {
@@ -105,19 +102,28 @@ public class HttpManager<A> {
         private Retrofit retrofit;
 
 
+        private TimeUnit mTimeUnit;
+
+
+        private long timeout;
+
+        private List<Interceptor> mInterceptors;
+
+
         public Builder() {
             callFactory = RxJava2CallAdapterFactory.create();
             converterFactory = GsonConverterFactory.create(gson);
-
+            mInterceptors = new ArrayList<>();
         }
 
         public Builder(OkHttpClient client, Retrofit retrofit) {
             this.client = client;
             this.retrofit = retrofit;
 
-
+            mInterceptors = new ArrayList<>();
             callFactory = RxJava2CallAdapterFactory.create();
             converterFactory = GsonConverterFactory.create(gson);
+
             base_url = retrofit.baseUrl();
 
 
@@ -133,6 +139,21 @@ public class HttpManager<A> {
             return this;
         }
 
+        public Builder timeUnit(TimeUnit timeUnit) {
+            mTimeUnit = timeUnit;
+            return this;
+        }
+
+        public Builder addInterceptor(Interceptor interceptor) {
+            mInterceptors.add(interceptor);
+            return this;
+        }
+
+        public Builder timeout(long timeout) {
+            this.timeout = timeout;
+            return this;
+        }
+
         public Builder client(OkHttpClient client) {
             this.client = client;
             return this;
@@ -145,18 +166,33 @@ public class HttpManager<A> {
         }
 
 
-
         public HttpManager build() {
 
+            if (timeout == 0) {
+                timeout = 5;
+            }
+
+            if (mTimeUnit == null) {
+                mTimeUnit = TimeUnit.SECONDS;
+            }
+
+
             if (client == null) {
-                client = new OkHttpClient
+
+                OkHttpClient.Builder builder = new OkHttpClient
                         .Builder()
                         .connectTimeout(5, TimeUnit.SECONDS)
                         .readTimeout(5, TimeUnit.SECONDS)
                         .writeTimeout(5, TimeUnit.SECONDS)
                         .addInterceptor(new BaseUrlInterceptor())
-                        .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                        .build();
+                        .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+
+                for (int i = 0; i < mInterceptors.size(); i++) {
+                    builder.addInterceptor(mInterceptors.get(i));
+                }
+
+                client = builder.build();
+
             }
 
 

@@ -12,4 +12,6 @@ package cn.logcode.library.config;
  * @content:
  */
 public class AppConfig {
+    public static String BUGLY_APPID = "";
+    public static boolean IS_OPEN_LITEPAL = true;
 }

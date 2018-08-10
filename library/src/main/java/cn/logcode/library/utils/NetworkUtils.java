@@ -1,11 +1,11 @@
-package cn.logcode.commandcore.utils;
+package cn.logcode.library.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 
-import com.orhanobut.logger.Logger;
+import cn.logcode.library.Log.LogUtils;
 
 
 /**
@@ -52,9 +52,9 @@ public class NetworkUtils {
         }
         //MOBILE
         //WIFI
-        Logger.d(networkInfo.getTypeName());
+        LogUtils.d(networkInfo.getTypeName());
         if(networkInfo.getType() == ConnectivityManager.TYPE_WIFI){
-            Logger.d(networkInfo.getTypeName());
+            LogUtils.d(networkInfo.getTypeName());
             return true;
         }
 

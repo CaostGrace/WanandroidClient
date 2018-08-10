@@ -2,18 +2,17 @@ package cn.logcode.library;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.ComponentCallbacks;
-import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.res.Configuration;
-import android.os.Build;
+import android.content.Context;
 import android.os.Bundle;
 
 import com.tencent.bugly.Bugly;
-import com.tencent.bugly.crashreport.CrashReport;
 
-import butterknife.BuildConfig;
+import org.litepal.LitePal;
+import org.litepal.LitePalApplication;
+
 import cn.logcode.library.Log.LogUtils;
+import cn.logcode.library.config.AppConfig;
+import cn.logcode.library.utils.ActivityUtils;
 
 /**
  * Created by CaostGrace on 2018/5/30 22:03
@@ -26,69 +25,123 @@ import cn.logcode.library.Log.LogUtils;
  * @content:
  */
 public class ApplicationLibrary extends Application {
-    public static ApplicationLibrary INSTANCE;
+    public static Application Instance;
+
+    public static Context getContext() {
+        return Instance.getApplicationContext();
+    }
+
+    public static Application getInstance() {
+        return Instance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        INSTANCE = this;
-        //测试时为true，发布时为false
-//        CrashReport.initCrashReport(getApplicationContext(), "注册时申请的APPID", true);
-//        CrashReport.initCrashReport(getApplicationContext(), "注册时申请的APPID", true);
+        Builder builder = new Builder()
+                .buglyId(AppConfig.BUGLY_APPID)
+                .isOpenLitepal(AppConfig.IS_OPEN_LITEPAL)
+                .build();
+        init(this, builder);
+    }
 
-        if(!buglyAppId().equals("")){
 
-            ApplicationInfo info= getApplicationInfo();
-            boolean isDebug = (info.flags&ApplicationInfo.FLAG_DEBUGGABLE)!=0;
+    public static void init(Application application, Builder builder) {
+        Instance = application;
+
+        if (!builder.buglyId.equals("")) {
+
+            boolean isDebug = BuildConfig.DEBUG;
             LogUtils.d(isDebug);
-            Bugly.init(getApplicationContext(), buglyAppId(), isDebug);
-            
+            Bugly.init(application.getApplicationContext(), builder.buglyId, isDebug);
+
+        }
+
+        /**
+         * 是否使用litepal来使用数据库
+         */
+        if (builder.isOpenLitepal) {
+            LitePal.initialize(application);
         }
 
         //生命周期回调
-//        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-//            @Override
-//            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-//                LogUtils.d("onActivityCreated==>"+activity.toString());
-//            }
-//
-//            @Override
-//            public void onActivityStarted(Activity activity) {
-//                LogUtils.d("onActivityStarted==>"+activity.toString());
-//            }
-//
-//            @Override
-//            public void onActivityResumed(Activity activity) {
-//                LogUtils.d("onActivityResumed==>"+activity.toString());
-//            }
-//
-//            @Override
-//            public void onActivityPaused(Activity activity) {
-//                LogUtils.d("onActivityPaused==>"+activity.toString());
-//            }
-//
-//            @Override
-//            public void onActivityStopped(Activity activity) {
-//                LogUtils.d("onActivityStopped==>"+activity.toString());
-//            }
-//
-//            @Override
-//            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-//                LogUtils.d("onActivitySaveInstanceState==>"+activity.toString());
-//            }
-//
-//            @Override
-//            public void onActivityDestroyed(Activity activity) {
-//                LogUtils.d("onActivityDestroyed==>"+activity.toString());
-//            }
-//        });
+        application.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                LogUtils.d("onActivityCreated==>" + activity.toString());
+                ActivityUtils.add(activity);
+            }
 
-    }
-    public String getBaseUrl(){
-        return "";
-    };
+            @Override
+            public void onActivityStarted(Activity activity) {
+                LogUtils.d("onActivityStarted==>" + activity.toString());
+            }
 
-    public String buglyAppId(){
-        return "";
+            @Override
+            public void onActivityResumed(Activity activity) {
+                LogUtils.d("onActivityResumed==>" + activity.toString());
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+                LogUtils.d("onActivityPaused==>" + activity.toString());
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+                LogUtils.d("onActivityStopped==>" + activity.toString());
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                LogUtils.d("onActivitySaveInstanceState==>" + activity.toString());
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                LogUtils.d("onActivityDestroyed==>" + activity.toString());
+                ActivityUtils.remove(activity);
+            }
+        });
     }
+
+
+    static class Builder {
+        private String buglyId = "";
+        private boolean isOpenLitepal = false;
+
+
+        public String getBuglyId() {
+            return buglyId;
+        }
+
+        public boolean isOpenLitepal() {
+            return isOpenLitepal;
+        }
+
+        public Builder() {
+            buglyId = "";
+            isOpenLitepal = false;
+        }
+
+
+        public Builder buglyId(String buglyId) {
+            this.buglyId = buglyId;
+            AppConfig.BUGLY_APPID = buglyId;
+            return this;
+        }
+
+
+        public Builder isOpenLitepal(boolean isOpen) {
+            this.isOpenLitepal = isOpen;
+            AppConfig.IS_OPEN_LITEPAL = isOpen;
+            return this;
+        }
+
+
+        public Builder build() {
+            return this;
+        }
+    }
+
 }

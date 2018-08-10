@@ -1,14 +1,12 @@
 package cn.logcode.library.http;
 
-import com.orhanobut.logger.Logger;
-
 import java.io.EOFException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.concurrent.TimeUnit;
 
-import cn.logcode.commandcore.Log.LogUtils;
+import cn.logcode.library.Log.LogUtils;
 import okhttp3.Connection;
 import okhttp3.Headers;
 import okhttp3.Interceptor;

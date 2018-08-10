@@ -2,52 +2,55 @@ package cn.logcode.library.utils;
 
 import android.app.Activity;
 
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by CaostGrace on 2018/6/6 20:15
+ * Created by CaostGrace on 2018/8/9 11:20
  *
- * @project_name: FrameworkDemo
- * @package_name: cn.logcode.library.utils
+ * @author caost
+ * @project_name: ComponentBased
+ * @package_name: cn.logcode.commandcore.utils
  * @class_name: ActivityUtils
  * @github: https://github.com/CaostGrace
  * @简书: http://www.jianshu.com/u/b252a19d88f3
  * @content:
  */
 public class ActivityUtils {
-    private static Stack<Activity> mActivitys;
+    private static List<Activity> activityList = new ArrayList<>();
 
-    public static void addActivity(Activity activity) {
-        if (mActivitys == null) {
-            mActivitys = new Stack<>();
+    public static Activity add(Activity activity) {
+        if (activityList != null && activity != null) {
+            activityList.add(activity);
         }
-        if (mActivitys.contains(activity)) {
-            removeActivity(activity);
+
+        return activity;
+    }
+
+    public static void remove(Activity activity) {
+        if (activityList != null && activity != null) {
+            if (activityList.contains(activity)) {
+                activityList.remove(activity);
+                activity.finish();
+            }
         }
-        mActivitys.push(activity);
+    }
+
+
+    public static void exit() {
+        if (activityList != null) {
+            for (Activity activity : activityList) {
+                activity.finish();
+            }
+        }
     }
 
 
     public static Activity getTopActivity() {
-        if (mActivitys == null) {
-            return null;
+        if (activityList != null && activityList.size() != 0) {
+            return activityList.get(activityList.size() - 1);
         }
-        return mActivitys.peek();
-    }
-
-    public static void removeActivity(Activity activity) {
-        if (mActivitys != null) {
-            mActivitys.remove(activity);
-        }
-    }
-
-    public static void finish() {
-        if (mActivitys != null) {
-            for (int i = 0; i < mActivitys.size(); i++) {
-                mActivitys.get(i).finish();
-                mActivitys.remove(i);
-            }
-        }
+        return null;
     }
 
 }
