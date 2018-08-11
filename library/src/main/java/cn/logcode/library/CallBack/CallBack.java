@@ -19,6 +19,5 @@ public abstract class CallBack<T> {
     }
 
     public void data(T t) {
-//        LogUtils.d(t.toString());
     }
 }

@@ -69,6 +69,11 @@ dependencies {
     // Optional, if you use support library fragments:
     debugImplementation rootProject.ext.dependencies.leakcanary_support_debug
 
+
+    //  glide
+    api rootProject.ext.dependencies.glide
+    annotationProcessor rootProject.ext.dependencies.glide_compiler
+
 }
 repositories {
     mavenCentral()
