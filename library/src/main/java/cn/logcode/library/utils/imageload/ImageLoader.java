@@ -3,6 +3,8 @@ package cn.logcode.library.utils.imageload;
 import android.content.Context;
 import android.widget.ImageView;
 
+import com.squareup.haha.perflib.Instance;
+
 import cn.logcode.library.utils.CheckUtils;
 
 /**
@@ -19,9 +21,23 @@ import cn.logcode.library.utils.CheckUtils;
 public class ImageLoader implements LoadStrategy {
 
     private static LoadStrategy loadStrategy;
+    private static ImageLoader instance;
+
 
     public static void init(LoadStrategy strategy) {
         loadStrategy = strategy;
+        if (instance == null) {
+            instance = new ImageLoader();
+        }
+    }
+
+    public static ImageLoader getInstance() {
+        return instance;
+    }
+
+    public ImageLoader setLoadStrategy(LoadStrategy strategy) {
+        loadStrategy = strategy;
+        return this;
     }
 
 
