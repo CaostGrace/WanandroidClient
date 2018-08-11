@@ -1,6 +1,7 @@
 package cn.logcode.library.http;
 
 import cn.logcode.library.ApplicationLibrary;
+import cn.logcode.library.mvp.IView;
 import cn.logcode.library.utils.CheckUtils;
 import cn.logcode.library.utils.NetworkUtils;
 import io.reactivex.Observer;
@@ -22,14 +23,14 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     protected Disposable mDisposable;
 
-    protected NetworkLoadProcess mNetworkLoadProcess;
+    protected IView mNetworkLoadProcess;
 
 
     public Disposable getDisposable() {
         return mDisposable;
     }
 
-    public BaseObserver(NetworkLoadProcess networkLoadProcess) {
+    public BaseObserver(IView networkLoadProcess) {
         mNetworkLoadProcess = networkLoadProcess;
     }
 
@@ -42,17 +43,16 @@ public abstract class BaseObserver<T> implements Observer<T> {
     public void onSubscribe(Disposable d) {
         mDisposable = d;
 
-        if (!CheckUtils.checkIsNull(mNetworkLoadProcess)) {
 
-            if (NetworkUtils.isNetworkConnected(ApplicationLibrary.getContext())) {
-                mNetworkLoadProcess.networkRequestStart("加载中...");
-            } else {
-                mDisposable.dispose();
-                onError(new ApiException(ApiException.NETWORK_ERROR, "网络连接错误"));
+        if (NetworkUtils.isNetworkConnected(ApplicationLibrary.getContext())) {
+
+            if (!CheckUtils.checkIsNull(mNetworkLoadProcess)) {
+                mNetworkLoadProcess.loadStart("加载中...");
             }
-
+        } else {
+            mDisposable.dispose();
+            onError(new ApiException(ApiException.NETWORK_ERROR, "网络连接错误"));
         }
-
 
     }
 
@@ -60,18 +60,25 @@ public abstract class BaseObserver<T> implements Observer<T> {
     @Override
     public void onError(Throwable throwable) {
         throwable.printStackTrace();
-        if (!CheckUtils.checkIsNull(mNetworkLoadProcess)) {
-            mNetworkLoadProcess.networkRequestEnd();
-            if (throwable instanceof ApiException) {
-                ApiException apiException = (ApiException) throwable;
-                mNetworkLoadProcess.networkRequestError(apiException.code, apiException.msg);
-                onHandleError(apiException.code, apiException.msg);
-            } else {
-                mNetworkLoadProcess.networkRequestError(ApiException.UNKNOWN_ERROR, throwable.getMessage());
-                onHandleError(ApiException.UNKNOWN_ERROR, throwable.getMessage());
+
+
+        if (throwable instanceof ApiException) {
+            ApiException apiException = (ApiException) throwable;
+
+            if (!CheckUtils.checkIsNull(mNetworkLoadProcess)) {
+                mNetworkLoadProcess.loadEnd();
+                mNetworkLoadProcess.loadError(apiException.code, apiException.msg);
             }
 
+            onHandleError(apiException.code, apiException.msg);
+        } else {
+            if (!CheckUtils.checkIsNull(mNetworkLoadProcess)) {
+                mNetworkLoadProcess.loadEnd();
+                mNetworkLoadProcess.loadError(ApiException.UNKNOWN_ERROR, throwable.getMessage());
+            }
+            onHandleError(ApiException.UNKNOWN_ERROR, throwable.getMessage());
         }
+
     }
 
     @Override

@@ -31,7 +31,7 @@ public class ImageLoader implements LoadStrategy {
         }
     }
 
-    public static ImageLoader getInstance() {
+    public static ImageLoader get() {
         return instance;
     }
 

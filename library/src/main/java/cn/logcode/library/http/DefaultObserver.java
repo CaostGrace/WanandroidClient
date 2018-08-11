@@ -1,6 +1,7 @@
 package cn.logcode.library.http;
 
 
+import cn.logcode.library.mvp.IView;
 import cn.logcode.library.utils.CheckUtils;
 
 /**
@@ -24,7 +25,7 @@ public abstract class DefaultObserver<T> extends BaseObserver<T> {
     }
 
 
-    public DefaultObserver(NetworkLoadProcess networkLoadProcess) {
+    public DefaultObserver(IView networkLoadProcess) {
         super(networkLoadProcess);
     }
 
@@ -32,7 +33,7 @@ public abstract class DefaultObserver<T> extends BaseObserver<T> {
     @Override
     public void onNext(T t) {
         if (!CheckUtils.checkIsNull(mNetworkLoadProcess)) {
-            mNetworkLoadProcess.networkRequestEnd();
+            mNetworkLoadProcess.loadEnd();
         }
         onHandleSuccess(t);
     }

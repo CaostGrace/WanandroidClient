@@ -1,6 +1,7 @@
 package cn.logcode.library.http;
 
 
+import cn.logcode.library.mvp.IView;
 import cn.logcode.library.utils.CheckUtils;
 
 /**
@@ -23,7 +24,7 @@ public abstract class EntityObserver<T> extends BaseObserver<BaseEntity<T>> {
         super();
     }
 
-    public EntityObserver(NetworkLoadProcess networkLoadProcess) {
+    public EntityObserver(IView networkLoadProcess) {
         super(networkLoadProcess);
     }
 
@@ -31,7 +32,7 @@ public abstract class EntityObserver<T> extends BaseObserver<BaseEntity<T>> {
     public void onNext(BaseEntity<T> value) {
 
         if (!CheckUtils.checkIsNull(mNetworkLoadProcess)) {
-            mNetworkLoadProcess.networkRequestEnd();
+            mNetworkLoadProcess.loadEnd();
         }
 
         if (value.status == 0) {

@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import cn.logcode.library.ApplicationLibrary;
-import cn.logcode.library.CallBack.CallBack;
 import cn.logcode.library.R;
 import cn.logcode.library.utils.CheckUtils;
 
