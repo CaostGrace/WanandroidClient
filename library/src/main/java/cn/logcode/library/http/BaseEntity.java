@@ -15,9 +15,9 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class BaseEntity<R> {
-    @SerializedName("status")
+    @SerializedName("errorCode")
     public int status;
-    @SerializedName("msg")
+    @SerializedName("errorMsg")
     public String msg;
     @SerializedName("data")
     public R data;

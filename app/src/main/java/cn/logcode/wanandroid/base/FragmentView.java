@@ -28,4 +28,9 @@ public class FragmentView extends IviewImpl {
     public void loadError(int code, String errorMSg) {
 
     }
+
+    @Override
+    public void initView() {
+
+    }
 }

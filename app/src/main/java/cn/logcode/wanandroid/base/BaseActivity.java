@@ -31,7 +31,6 @@ public class BaseActivity extends ActivityDelegate {
         super.onCreate(savedInstanceState);
         parent = View.inflate(this, R.layout.base_activity, null);
         contentContainer = parent.findViewById(R.id.content_container);
-
     }
 
     @Override

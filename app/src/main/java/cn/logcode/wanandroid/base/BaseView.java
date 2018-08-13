@@ -1,6 +1,11 @@
 package cn.logcode.wanandroid.base;
 
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+
+import butterknife.BindView;
 import cn.logcode.library.mvp.IviewImpl;
+import cn.logcode.wanandroid.R;
 
 /**
  * Created by CaostGrace on 2018/8/13 9:45
@@ -14,19 +19,15 @@ import cn.logcode.library.mvp.IviewImpl;
  * @content:
  */
 public abstract class BaseView extends IviewImpl {
-    @Override
-    public void loadStart(String msg) {
-
-    }
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     @Override
-    public void loadEnd() {
+    public void initView() {
+        ((AppCompatActivity) mContext).setSupportActionBar(mToolbar);
+
+        
+
 
     }
-
-    @Override
-    public void loadError(int code, String errorMSg) {
-
-    }
-
 }
