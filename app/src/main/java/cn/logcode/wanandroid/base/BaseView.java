@@ -13,7 +13,7 @@ import cn.logcode.library.mvp.IviewImpl;
  * @简书: http://www.jianshu.com/u/b252a19d88f3
  * @content:
  */
-public class BaseView extends IviewImpl {
+public abstract class BaseView extends IviewImpl {
     @Override
     public void loadStart(String msg) {
 
@@ -28,4 +28,5 @@ public class BaseView extends IviewImpl {
     public void loadError(int code, String errorMSg) {
 
     }
+
 }

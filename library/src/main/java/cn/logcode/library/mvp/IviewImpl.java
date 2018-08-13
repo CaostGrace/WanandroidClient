@@ -93,7 +93,6 @@ public abstract class IviewImpl implements IView {
 
     }
 
-    public void initView() {
-    }
+    public abstract void initView();
 
 }

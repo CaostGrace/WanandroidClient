@@ -68,9 +68,19 @@ public abstract class ActivityDelegate<V extends IView, M extends IModel> extend
     public void setContentView(int layoutResID) {
         parent = View.inflate(this, layoutResID, null);
         super.setContentView(parent);
+
+
         mUnbinder = ButterKnife.bind(this);
         mView.onAttach(this, false);
 
+    }
+
+
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+        mUnbinder = ButterKnife.bind(this);
+        mView.onAttach(this, false);
     }
 
 
