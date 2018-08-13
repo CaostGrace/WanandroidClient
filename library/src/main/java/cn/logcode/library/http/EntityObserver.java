@@ -1,6 +1,7 @@
 package cn.logcode.library.http;
 
 
+import cn.logcode.library.config.HttpConfig;
 import cn.logcode.library.mvp.IView;
 import cn.logcode.library.utils.CheckUtils;
 
@@ -35,7 +36,7 @@ public abstract class EntityObserver<T> extends BaseObserver<BaseEntity<T>> {
             mNetworkLoadProcess.loadEnd();
         }
 
-        if (value.status == 0) {
+        if (value.status == HttpConfig.REQUEST_SUCCESS) {
             T t = value.data;
             onHandleSuccess(t);
         } else {

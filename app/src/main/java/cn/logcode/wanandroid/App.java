@@ -5,6 +5,7 @@ import android.app.Application;
 import java.io.IOException;
 
 import cn.logcode.library.ApplicationLibrary;
+import cn.logcode.library.config.HttpConfig;
 import cn.logcode.library.http.HttpManager;
 import cn.logcode.wanandroid.config.AppConfig;
 import cn.logcode.wanandroid.config.Constants;
@@ -35,6 +36,15 @@ public class App extends Application {
                 .build();
         ApplicationLibrary.init(this, builder);
 
-        HttpManager.init(WanAndroidApiService.class);
+//        HttpManager.init(WanAndroidApiService.class);
+
+        new HttpManager
+                .Builder()
+                .baseUrl(HttpConfig.BASE_URL)
+                .build()
+                .apiService(WanAndroidApiService.class);
+
+
+
     }
 }

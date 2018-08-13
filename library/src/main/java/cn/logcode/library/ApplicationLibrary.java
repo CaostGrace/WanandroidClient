@@ -148,6 +148,12 @@ public class ApplicationLibrary extends Application {
             return this;
         }
 
+
+        public Builder requestSuccessCode(int code) {
+            HttpConfig.REQUEST_SUCCESS = code;
+            return this;
+        }
+
         public Builder openLeakcanary(boolean isOpen) {
             AppConfig.IS_OPEN_LEAKCANARY = isOpen;
             return this;
@@ -158,6 +164,7 @@ public class ApplicationLibrary extends Application {
             AppConfig.BUGLY_APPID = buglyId;
             return this;
         }
+
 
 
         public Builder isOpenLitepal(boolean isOpen) {

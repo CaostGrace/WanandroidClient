@@ -70,7 +70,7 @@ public class HttpManager<T> {
                     .build();
             baseUrl = HttpConfig.BASE_URL;
         }
-        DEFAULT.createApi(cls);
+        DEFAULT.apiService(cls);
     }
 
 
@@ -102,6 +102,10 @@ public class HttpManager<T> {
         this.client = client;
         this.retrofit = retrofit;
         baseUrl = retrofit.baseUrl().toString();
+
+        DEFAULT = this;
+
+
     }
 
     @Deprecated
@@ -109,7 +113,7 @@ public class HttpManager<T> {
         return new Builder(client, retrofit);
     }
 
-    public T createApi(Class<T> cls) {
+    public T apiService(Class<T> cls) {
         if (CheckUtils.checkIsNull(service)) {
             synchronized (DEFAULT) {
                 if (CheckUtils.checkIsNull(service)) {
@@ -158,8 +162,9 @@ public class HttpManager<T> {
 
             base_url = retrofit.baseUrl();
 
-
         }
+
+
 
         public Builder callAdapterFactory(CallAdapter.Factory factory) {
             this.callFactory = factory;
