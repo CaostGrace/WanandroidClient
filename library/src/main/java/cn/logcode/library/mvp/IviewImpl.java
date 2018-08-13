@@ -9,9 +9,11 @@ import android.support.v4.app.FragmentManager;
 import android.util.SparseArray;
 import android.view.View;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.logcode.library.Log.LogUtils;
+import cn.logcode.library.utils.CheckUtils;
 
 /**
  * Created by CaostGrace on 2018/6/6 20:09
@@ -29,6 +31,9 @@ public abstract class IviewImpl implements IView {
     public IDelegate mDelegate;
 
     public Context mContext;
+
+
+    private Unbinder mUnbinder;
 
     public View getRootView() {
         return rootView;
@@ -57,18 +62,19 @@ public abstract class IviewImpl implements IView {
     }
 
 
-
     @Override
-    public void onAttach(IDelegate delegate,boolean isFragment) {
+    public void onAttach(IDelegate delegate, boolean isFragment) {
         mDelegate = delegate;
         rootView = delegate.getRootView();
         mContext = delegate.getContext();
 
-        if(isFragment){
-            mFragmentManager = ((Fragment)delegate).getChildFragmentManager();
-        }else{
-            mFragmentManager = ((FragmentActivity)mContext).getSupportFragmentManager();
+        if (isFragment) {
+            mFragmentManager = ((Fragment) delegate).getChildFragmentManager();
+        } else {
+            mFragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
         }
+
+        mUnbinder = ButterKnife.bind(this, rootView);
 
         initView();
     }
@@ -80,8 +86,14 @@ public abstract class IviewImpl implements IView {
         mContext = null;
         mViews = null;
         rootView = null;
+
+        if (CheckUtils.checkNotNull(mUnbinder)) {
+            mUnbinder.unbind();
+        }
+
     }
 
-    public void initView(){}
+    public void initView() {
+    }
 
 }
