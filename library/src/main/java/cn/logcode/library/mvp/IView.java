@@ -1,6 +1,5 @@
 package cn.logcode.library.mvp;
 
-import cn.logcode.library.http.NetworkLoadProcess;
 
 /**
  * Created by CaostGrace on 2018/6/5 22:20

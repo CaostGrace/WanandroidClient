@@ -78,13 +78,22 @@ public abstract class FragmentDelegate<V extends IView, M extends IModel> extend
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         parent = inflater.inflate(getLayoutId(), null);
-        mUnbinder = ButterKnife.bind(this, parent);
-        mView.onAttach(this, true);
-        init();
+        init(savedInstanceState);
         return parent;
     }
 
-    public abstract void init();
+    public abstract void init(Bundle savedInstanceState);
+    public void doSomething(){}
+
+    protected void setContentView(View childView) {
+        if (CheckUtils.checkNotNull(parent)) {
+            ((ViewGroup) parent).removeViewAt(0);
+            ((ViewGroup) parent).addView(childView, 0);
+        }
+        mView.onAttach(this, true);
+        mUnbinder = ButterKnife.bind(this, parent);
+        doSomething();
+    }
 
     @Override
     public void onDetach() {
