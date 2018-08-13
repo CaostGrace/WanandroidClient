@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import cn.logcode.library.config.HttpConfig;
 import cn.logcode.library.utils.CheckUtils;
+import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -122,6 +123,7 @@ public class HttpManager<T> {
         private OkHttpClient client;
         private Retrofit retrofit;
 
+        private CookieJar mCookieJar;
 
         private TimeUnit mTimeUnit;
 
@@ -135,6 +137,7 @@ public class HttpManager<T> {
             callFactory = RxJava2CallAdapterFactory.create();
             converterFactory = GsonConverterFactory.create(gson);
             mInterceptors = new ArrayList<>();
+            mCookieJar = CookieJar.NO_COOKIES;
         }
 
         public Builder(OkHttpClient client, Retrofit retrofit) {
@@ -146,6 +149,7 @@ public class HttpManager<T> {
             converterFactory = GsonConverterFactory.create(gson);
 
             base_url = retrofit.baseUrl();
+            mCookieJar = CookieJar.NO_COOKIES;
 
         }
 
@@ -162,6 +166,12 @@ public class HttpManager<T> {
 
         public Builder timeUnit(TimeUnit timeUnit) {
             mTimeUnit = timeUnit;
+            return this;
+        }
+
+
+        public Builder cookieJar(CookieJar cookieJar){
+            mCookieJar = cookieJar;
             return this;
         }
 
@@ -206,6 +216,7 @@ public class HttpManager<T> {
                         .connectTimeout(5, TimeUnit.SECONDS)
                         .readTimeout(5, TimeUnit.SECONDS)
                         .writeTimeout(5, TimeUnit.SECONDS)
+                        .cookieJar(mCookieJar)
                         .addInterceptor(new BaseUrlInterceptor())
                         .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
 

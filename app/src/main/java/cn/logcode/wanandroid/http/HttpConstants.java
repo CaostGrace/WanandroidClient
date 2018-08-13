@@ -114,4 +114,15 @@ public class HttpConstants {
      */
     public static final String REGISTER = "user/register";
 
+
+    //################################ 六、收藏  #######################################
+
+    /**
+     * 6.1 收藏文章列表
+     * 方法：GET
+     * 参数： 页码：拼接在链接中，从0开始。
+     */
+    public static final String COLLECT_LIST = "lg/collect/list/{" + PAGE + "}/json";
+
+
 }

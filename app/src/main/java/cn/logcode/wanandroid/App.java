@@ -9,6 +9,7 @@ import cn.logcode.library.config.HttpConfig;
 import cn.logcode.library.http.HttpManager;
 import cn.logcode.wanandroid.config.AppConfig;
 import cn.logcode.wanandroid.config.Constants;
+import cn.logcode.wanandroid.http.CookieManager;
 import cn.logcode.wanandroid.http.WanAndroidApiService;
 import okhttp3.Interceptor;
 import okhttp3.Response;
@@ -36,8 +37,14 @@ public class App extends Application {
                 .build();
         ApplicationLibrary.init(this, builder);
 
-        HttpManager.init().apiService(WanAndroidApiService.class);
 
+        HttpManager httpManager = new HttpManager
+                .Builder()
+                .baseUrl(Constants.BASE_URL)
+                .cookieJar(new CookieManager())
+                .build();
+
+        httpManager.apiService(WanAndroidApiService.class);
 
     }
 }

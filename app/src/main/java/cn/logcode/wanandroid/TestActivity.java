@@ -16,7 +16,9 @@ import cn.logcode.library.http.EntityObserver;
 import cn.logcode.library.http.HttpManager;
 import cn.logcode.library.http.RxSchedulers;
 import cn.logcode.wanandroid.bean.Banner;
+import cn.logcode.wanandroid.bean.CollectionListBean;
 import cn.logcode.wanandroid.bean.HomePageList;
+import cn.logcode.wanandroid.bean.LoginBean;
 import cn.logcode.wanandroid.http.WanAndroidApiService;
 import io.reactivex.FlowableSubscriber;
 import io.reactivex.functions.Consumer;
@@ -42,14 +44,13 @@ public class TestActivity extends AppCompatActivity {
 
             httpManager
                     .apiService()
-                    .banner()
+                    .collectList(0)
                     .compose(RxSchedulers.compose())
-                    .subscribe(new DefaultObserver<List<Banner>>() {
+                    .subscribe(new DefaultObserver<CollectionListBean>() {
                         @Override
-                        public void onHandleSuccess(List<Banner> banners) {
-                            LogUtils.d(banners.size());
+                        public void onHandleSuccess(CollectionListBean bean) {
+                            LogUtils.d(bean.toString());
                         }
-
                         @Override
                         protected void onHandleError(int code, String msg) {
                             super.onHandleError(code, msg);

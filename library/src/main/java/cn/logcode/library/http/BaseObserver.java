@@ -1,6 +1,7 @@
 package cn.logcode.library.http;
 
 import cn.logcode.library.ApplicationLibrary;
+import cn.logcode.library.Log.LogUtils;
 import cn.logcode.library.mvp.IView;
 import cn.logcode.library.utils.CheckUtils;
 import cn.logcode.library.utils.NetworkUtils;
@@ -59,11 +60,12 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable throwable) {
-        throwable.printStackTrace();
-
 
         if (throwable instanceof ApiException) {
+
             ApiException apiException = (ApiException) throwable;
+
+            LogUtils.e("errorCode:" + apiException.code + "  errorMsg:" + apiException.msg);
 
             if (!CheckUtils.checkIsNull(mNetworkLoadProcess)) {
                 mNetworkLoadProcess.loadEnd();
@@ -72,6 +74,8 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
             onHandleError(apiException.code, apiException.msg);
         } else {
+            throwable.printStackTrace();
+
             if (!CheckUtils.checkIsNull(mNetworkLoadProcess)) {
                 mNetworkLoadProcess.loadEnd();
                 mNetworkLoadProcess.loadError(ApiException.UNKNOWN_ERROR, throwable.getMessage());
