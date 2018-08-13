@@ -23,12 +23,12 @@ public class HttpConstants {
      * 方法：GET
      * 参数：页码，拼接在连接中，从0开始。
      */
-    public static final String ARTICLE = "article/list/{"+PAGE+"}/json";
-    
+    public static final String ARTICLE = "article/list/{" + PAGE + "}/json";
+
     /**
-     *  1.2 首页banner
-     *  方法：GET
-     *  参数：无
+     * 1.2 首页banner
+     * 方法：GET
+     * 参数：无
      */
     public static final String BANNER = "banner/json";
 
@@ -48,8 +48,6 @@ public class HttpConstants {
     public static final String HOTKEY = "hotkey/json";
 
 
-
-
     //################################ 二、体系  #######################################
 
     /**
@@ -67,9 +65,7 @@ public class HttpConstants {
      * cid 分类的id，上述二级目录的id
      * 页码：拼接在链接上，从0开始。
      */
-    public static final String TREE_ARTICLE = "article/list/{"+PAGE+"}/json?cid={"+ID+"}";
-
-
+    public static final String TREE_ARTICLE = "article/list/{" + PAGE + "}/json?cid={" + ID + "}";
 
 
     //################################ 三、导航  #######################################
@@ -80,8 +76,6 @@ public class HttpConstants {
      * 参数：无
      */
     public static final String NAVI = "navi/json";
-
-
 
 
     //################################ 四、项目  #######################################
@@ -100,13 +94,24 @@ public class HttpConstants {
      * cid 分类的id，上面项目分类接口
      * 页码：拼接在链接中，从1开始。
      */
-    public static final String PROJECT_LIST_DATA = "project/list/{"+PAGE+"}/json?cid={"+ID+"}";
-
-
+    public static final String PROJECT_LIST_DATA = "project/list/{" + PAGE + "}/json?cid={" + ID + "}";
 
 
     //################################ 五、登录与注册  #######################################
 
+    /**
+     * 5.1 登录
+     * 方法：POST
+     * 参数：username，password
+     */
+    public static final String LOGIN = "user/login";
 
-    
+
+    /**
+     * 5.2 注册
+     * 方法：POST
+     * 参数：username,password,repassword
+     */
+    public static final String REGISTER = "user/register";
+
 }

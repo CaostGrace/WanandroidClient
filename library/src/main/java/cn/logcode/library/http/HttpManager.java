@@ -42,6 +42,7 @@ public class HttpManager<T> {
         return baseUrl;
     }
 
+
     public static HttpManager getInstance() {
 
         if (DEFAULT == null) {
@@ -53,33 +54,16 @@ public class HttpManager<T> {
         return DEFAULT;
     }
 
-
-    public static void init() {
+    public static HttpManager init() {
         if (DEFAULT == null) {
             DEFAULT = new Builder()
                     .baseUrl(HttpConfig.BASE_URL)
                     .build();
             baseUrl = HttpConfig.BASE_URL;
         }
+        return DEFAULT;
     }
 
-    public static void init(Class<?> cls) {
-        if (DEFAULT == null) {
-            DEFAULT = new Builder()
-                    .baseUrl(HttpConfig.BASE_URL)
-                    .build();
-            baseUrl = HttpConfig.BASE_URL;
-        }
-        DEFAULT.apiService(cls);
-    }
-
-
-    public T getService() {
-        if (CheckUtils.checkNotNull(service)) {
-            return service;
-        }
-        return null;
-    }
 
     public static void setHttpManager(HttpManager httpManager) {
         DEFAULT = httpManager;
@@ -105,7 +89,6 @@ public class HttpManager<T> {
 
         DEFAULT = this;
 
-
     }
 
     @Deprecated
@@ -120,9 +103,11 @@ public class HttpManager<T> {
                     service = retrofit.create(cls);
                 }
             }
-
         }
+        return service;
+    }
 
+    public T apiService() {
         return service;
     }
 
@@ -163,7 +148,6 @@ public class HttpManager<T> {
             base_url = retrofit.baseUrl();
 
         }
-
 
 
         public Builder callAdapterFactory(CallAdapter.Factory factory) {

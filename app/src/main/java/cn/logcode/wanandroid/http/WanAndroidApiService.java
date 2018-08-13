@@ -12,7 +12,7 @@ import cn.logcode.wanandroid.bean.ProjectBean;
 import cn.logcode.wanandroid.bean.ProjectListDataBean;
 import cn.logcode.wanandroid.bean.TreeArticleBean;
 import cn.logcode.wanandroid.bean.TreeDataBean;
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -36,7 +36,7 @@ public interface WanAndroidApiService {
      * @return
      */
     @GET(HttpConstants.ARTICLE)
-    Flowable<BaseEntity<HomePageList>> homePageList(@Path(HttpConstants.PAGE) int page);
+    Observable<BaseEntity<HomePageList>> homePageList(@Path(HttpConstants.PAGE) int page);
 
     /**
      * 1.2 首页banner
@@ -44,7 +44,7 @@ public interface WanAndroidApiService {
      * @return
      */
     @GET(HttpConstants.BANNER)
-    Flowable<BaseEntity<List<Banner>>> banner();
+    Observable<BaseEntity<List<Banner>>> banner();
 
     /**
      * 1.3 常用网站
@@ -52,7 +52,7 @@ public interface WanAndroidApiService {
      * @return
      */
     @GET(HttpConstants.FRIEND)
-    Flowable<BaseEntity<List<CommonWebsiteBean>>> commonWebsites();
+    Observable<BaseEntity<List<CommonWebsiteBean>>> commonWebsites();
 
 
     /**
@@ -61,7 +61,7 @@ public interface WanAndroidApiService {
      * @return
      */
     @GET(HttpConstants.HOTKEY)
-    Flowable<BaseEntity<List<HotKeyBean>>> hotkey();
+    Observable<BaseEntity<List<HotKeyBean>>> hotkey();
 
 
     /**
@@ -70,7 +70,7 @@ public interface WanAndroidApiService {
      * @return
      */
     @GET(HttpConstants.TREE)
-    Flowable<BaseEntity<List<TreeDataBean>>> tree();
+    Observable<BaseEntity<List<TreeDataBean>>> tree();
 
     /**
      * 2.2 知识体系下的文章
@@ -80,7 +80,7 @@ public interface WanAndroidApiService {
      * @return
      */
     @GET(HttpConstants.TREE_ARTICLE)
-    Flowable<BaseEntity<TreeArticleBean>> treeArticle(@Path(HttpConstants.PAGE) int page, @Path(HttpConstants.ID) int id);
+    Observable<BaseEntity<TreeArticleBean>> treeArticle(@Path(HttpConstants.PAGE) int page, @Path(HttpConstants.ID) int id);
 
 
     /**
@@ -89,7 +89,7 @@ public interface WanAndroidApiService {
      * @return
      */
     @GET(HttpConstants.NAVI)
-    Flowable<BaseEntity<List<NavBean>>> navi();
+    Observable<BaseEntity<List<NavBean>>> navi();
 
 
     /**
@@ -98,7 +98,7 @@ public interface WanAndroidApiService {
      * @return
      */
     @GET(HttpConstants.PROJECT)
-    Flowable<BaseEntity<List<ProjectBean>>> project();
+    Observable<BaseEntity<List<ProjectBean>>> project();
 
     /**
      * 4.2 项目列表数据
@@ -108,7 +108,7 @@ public interface WanAndroidApiService {
      * @return
      */
     @GET(HttpConstants.PROJECT_LIST_DATA)
-    Flowable<BaseEntity<ProjectListDataBean>> projectListData(@Path(HttpConstants.PAGE) int page, @Path(HttpConstants.ID) int id);
+    Observable<BaseEntity<ProjectListDataBean>> projectListData(@Path(HttpConstants.PAGE) int page, @Path(HttpConstants.ID) int id);
 
 
 

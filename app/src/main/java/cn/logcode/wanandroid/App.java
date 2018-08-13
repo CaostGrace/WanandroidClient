@@ -36,9 +36,7 @@ public class App extends Application {
                 .build();
         ApplicationLibrary.init(this, builder);
 
-        HttpManager.init(WanAndroidApiService.class);
-
-
+        HttpManager.init().apiService(WanAndroidApiService.class);
 
 
     }
