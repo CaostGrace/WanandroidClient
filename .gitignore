@@ -13,4 +13,5 @@
 /app/build
 /library/build
 /androidarchitecturecomponents
+*.jks
 
