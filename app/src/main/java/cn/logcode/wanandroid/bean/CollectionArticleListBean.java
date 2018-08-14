@@ -11,9 +11,9 @@ import java.util.List;
  * @class_name: CollectionListBean
  * @github: https://github.com/CaostGrace
  * @简书: http://www.jianshu.com/u/b252a19d88f3
- * @content:   收藏列表bean
+ * @content:   收藏文章列表bean
  */
-public class CollectionListBean {
+public class CollectionArticleListBean {
 
     /**
      * curPage : 1

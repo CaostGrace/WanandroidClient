@@ -15,7 +15,7 @@ import java.util.List;
  * @简书: http://www.jianshu.com/u/b252a19d88f3
  * @content: 首页文章列表bean
  */
-public class HomePageList extends LitePalSupport {
+public class ArticlePageList extends LitePalSupport {
 
 
     /**

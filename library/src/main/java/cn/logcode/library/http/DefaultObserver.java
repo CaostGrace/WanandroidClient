@@ -45,7 +45,7 @@ public abstract class DefaultObserver<T> extends BaseObserver<T> {
      *
      * @param t
      */
-    public abstract void onHandleSuccess(T t);
+    protected abstract void onHandleSuccess(T t);
 
 
 

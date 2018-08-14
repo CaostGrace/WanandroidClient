@@ -3,24 +3,28 @@ package cn.logcode.wanandroid.http;
 import java.util.List;
 
 import cn.logcode.library.http.BaseEntity;
+import cn.logcode.wanandroid.bean.AddWebSiteCollectBean;
 import cn.logcode.wanandroid.bean.Banner;
-import cn.logcode.wanandroid.bean.CollectionListBean;
+import cn.logcode.wanandroid.bean.CollectSiteListBean;
+import cn.logcode.wanandroid.bean.CollectionArticleListBean;
 import cn.logcode.wanandroid.bean.CommonWebsiteBean;
-import cn.logcode.wanandroid.bean.HomePageList;
+import cn.logcode.wanandroid.bean.ArticlePageList;
 import cn.logcode.wanandroid.bean.HotKeyBean;
+import cn.logcode.wanandroid.bean.IncompleteListBean;
 import cn.logcode.wanandroid.bean.LoginBean;
 import cn.logcode.wanandroid.bean.NavBean;
+import cn.logcode.wanandroid.bean.NullBean;
 import cn.logcode.wanandroid.bean.ProjectBean;
 import cn.logcode.wanandroid.bean.ProjectListDataBean;
 import cn.logcode.wanandroid.bean.RegisterBean;
+import cn.logcode.wanandroid.bean.Todo;
+import cn.logcode.wanandroid.bean.TodoBean;
 import cn.logcode.wanandroid.bean.TreeArticleBean;
 import cn.logcode.wanandroid.bean.TreeDataBean;
-import cn.logcode.wanandroid.config.Constants;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -44,7 +48,7 @@ public interface WanAndroidApiService {
      * @return
      */
     @GET(HttpConstants.ARTICLE)
-    Observable<BaseEntity<HomePageList>> homePageList(@Path(HttpConstants.PAGE) int page);
+    Observable<BaseEntity<ArticlePageList>> homePageList(@Path(HttpConstants.PAGE) int page);
 
     /**
      * 1.2 首页banner
@@ -133,9 +137,10 @@ public interface WanAndroidApiService {
 
     /**
      * 5.2 注册
-     * @param username           用户名
-     * @param password           密码
-     * @param repassword         重复密码
+     *
+     * @param username   用户名
+     * @param password   密码
+     * @param repassword 重复密码
      * @return
      */
     @FormUrlEncoded
@@ -146,11 +151,209 @@ public interface WanAndroidApiService {
 
     /**
      * 6.1 收藏文章列表      ,需要添加登录成功的cookie
+     *
      * @param page 页码
      * @return
      */
-    @GET(HttpConstants.COLLECT_LIST)
-    Observable<BaseEntity<CollectionListBean>> collectList(@Path(HttpConstants.PAGE)int page);
+    @GET(HttpConstants.COLLECT_ARTICLE_LIST)
+    Observable<BaseEntity<CollectionArticleListBean>> collectList(@Path(HttpConstants.PAGE) int page);
 
+
+    /**
+     * 6.2 收藏站内文章
+     *
+     * @param id 文章id
+     * @return
+     */
+    @POST(HttpConstants.COLLECT_IN_STATION)
+    Observable<BaseEntity<NullBean>> collectInStation(@Path(HttpConstants.ID) int id);
+
+
+    /**
+     * 6.3 收藏站外文章
+     *
+     * @param title  文章标题
+     * @param author 作者
+     * @param link   链接
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(HttpConstants.COLLECT_OUT_STATION)
+    Observable<BaseEntity<NullBean>> collectOutStation(@Field("title") String title, @Field("author") String author,
+                                                       @Field("link") String link);
+
+
+    /**
+     * 6.4.1 文章列表 取消收藏
+     *
+     * @return
+     */
+    @POST(HttpConstants.ARTICLES_LIST_UNCOLLECT)
+    Observable<BaseEntity<NullBean>> articlesListUncollect();
+
+
+    /**
+     * 6.4.2 我的收藏页面（该页面包含自己录入的内容） 取消收藏
+     *
+     * @param id
+     * @param originId originId 代表的是你收藏之前的那篇文章本身的id； 但是收藏支持主动添加，这种情况下，没有originId则为-1
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(HttpConstants.COLLECTION_LIST_UNCOLLECT)
+    Observable<BaseEntity<NullBean>> articlesListUncollect(@Path(HttpConstants.ID) int id, @Field("originId") String originId);
+
+
+    /**
+     * 6.5 收藏网站列表
+     *
+     * @return
+     */
+    @GET(HttpConstants.COLLECTION_SITE_LIST)
+    Observable<BaseEntity<List<CollectSiteListBean>>> collectionSiteList();
+
+
+    /**
+     * 6.6 收藏网址
+     *
+     * @param name
+     * @param link
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(HttpConstants.COLLECTION_WEB_SITES)
+    Observable<BaseEntity<AddWebSiteCollectBean>> collectionWebSites(@Field("name") String name,
+                                                                     @Field("link") String link);
+
+
+    /**
+     * 6.7 编辑收藏网站
+     *
+     * @param id
+     * @param name
+     * @param link
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(HttpConstants.EDIT_COLLECTION_WEBSITE)
+    Observable<BaseEntity<CollectSiteListBean>> editCollectionWebsite(@Field("id") String id,
+                                                                      @Field("name") String name,
+                                                                      @Field("link") String link);
+
+
+    /**
+     * 6.8 删除收藏网站
+     *
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(HttpConstants.DELETE_COLLECTION_WEBSITE)
+    Observable<BaseEntity<NullBean>> deleteCollectionWebsite(@Field("id") String id);
+
+
+    /**
+     * 7.1 搜索
+     *
+     * @param page 页码
+     * @param key  搜索关键字
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(HttpConstants.QUERY)
+    Observable<BaseEntity<ArticlePageList>> query(@Path(HttpConstants.PAGE) int page,
+                                                  @Field("k") String key);
+
+
+    /**
+     * 8.1 获取TODO列表
+     *
+     * @param type type取值为0，1，2，3。  分别为 只用这一个、工作、学习、生活
+     * @return
+     */
+    @GET(HttpConstants.TYPE)
+    Observable<BaseEntity<TodoBean>> todoList(@Path(HttpConstants.TYPE) int type);
+
+
+    /**
+     * 8.2 新增一条Todo
+     *
+     * @param title   标题
+     * @param content 内容
+     * @param date    时间 2018-08-01
+     * @param type    类型 type取值为0，1，2，3。  分别为 只用这一个、工作、学习、生活
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(HttpConstants.ADD_TODO)
+    Observable<BaseEntity<Todo>> addTodo(@Field("title") String title,
+                                         @Field("content") String content,
+                                         @Field("date") String date,
+                                         @Field("type") int type);
+
+
+    /**
+     * 8.3 更新一条Todo内容
+     *
+     * @param id      id   拼接在链接上，为唯一标识
+     * @param title
+     * @param content
+     * @param date
+     * @param type
+     * @param status  0为未完成，1为完成
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(HttpConstants.UPDATE_TODO)
+    Observable<BaseEntity<Todo>> updateTodo(@Path(HttpConstants.ID) int id,
+                                            @Field("title") String title,
+                                            @Field("content") String content,
+                                            @Field("date") String date,
+                                            @Field("type") int type,
+                                            @Field("status") String status);
+
+
+    /**
+     * 8.4 删除一条Todo
+     *
+     * @param id 拼接在链接上，为唯一标识
+     * @return
+     */
+    @POST(HttpConstants.DELATE_TODO)
+    Observable<BaseEntity<NullBean>> deleteTodo(@Path(HttpConstants.ID) int id);
+
+
+    /**
+     * 8.5 仅更新完成状态Todo
+     *
+     * @param id 拼接在链接上，为唯一标识
+     * @return
+     */
+    @POST(HttpConstants.UPDATE_COMPLETE_STATE_TODO)
+    Observable<BaseEntity<Todo>> updateCompleteStateTodo(@Path(HttpConstants.ID) int id);
+
+
+    /**
+     * 8.6 未完成 Todo 列表
+     *
+     * @param type 类型：类型拼接在链接上，目前支持0,1,2,3
+     * @param page 拼接在链接上，从1开始；
+     * @return
+     */
+    @POST(HttpConstants.INCOMPLETE_LIST)
+    Observable<BaseEntity<IncompleteListBean>> incompleteList(@Path(HttpConstants.TYPE) int type,
+                                                              @Path(HttpConstants.PAGE) int page);
+
+
+    /**
+     * 8.7 已完成 Todo 列表
+     *
+     * @param type 类型：类型拼接在链接上，目前支持0,1,2,3
+     * @param page 拼接在链接上，从1开始；
+     * @return
+     */
+    @POST(HttpConstants.COMPLETED_TODO_LIST)
+    Observable<BaseEntity<IncompleteListBean>> completedTodoList(@Path(HttpConstants.TYPE) int type,
+                                                                 @Path(HttpConstants.PAGE) int page);
 
 }
