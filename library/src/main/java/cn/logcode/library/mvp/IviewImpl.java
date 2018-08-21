@@ -74,6 +74,7 @@ public abstract class IviewImpl implements IView {
             mFragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
         }
 
+
         mUnbinder = ButterKnife.bind(this, rootView);
 
         initView();
@@ -93,6 +94,6 @@ public abstract class IviewImpl implements IView {
 
     }
 
-    public abstract void initView();
+    protected abstract void initView();
 
 }

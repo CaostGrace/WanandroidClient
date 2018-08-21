@@ -42,12 +42,12 @@ public class LibraryService extends Service {
     private ServiceThread mServiceThread;
 
     public static void init(Context context) {
-        Intent baoxinService = new Intent(context, LibraryService.class);
+        Intent service = new Intent(context, LibraryService.class);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(baoxinService);
+            context.startForegroundService(service);
         } else {
-            context.startService(baoxinService);
+            context.startService(service);
         }
     }
 
@@ -76,8 +76,8 @@ public class LibraryService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             Notification.Builder builder = new Notification.Builder(getApplicationContext(), "baoxinService")
-                    .setContentTitle("宝信")
-                    .setContentText("宝信正在运行中")
+                    .setContentTitle("app")
+                    .setContentText("app正在运行中")
                     .setSmallIcon(R.drawable.abc_btn_checkbox_checked_mtrl)
                     .setAutoCancel(true);
 

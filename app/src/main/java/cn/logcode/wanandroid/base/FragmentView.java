@@ -1,6 +1,11 @@
 package cn.logcode.wanandroid.base;
 
+import android.support.v4.widget.SwipeRefreshLayout;
+
+import butterknife.BindView;
 import cn.logcode.library.mvp.IviewImpl;
+import cn.logcode.library.utils.CheckUtils;
+import cn.logcode.wanandroid.R;
 
 /**
  * Created by CaostGrace on 2018/8/13 9:46
@@ -14,6 +19,24 @@ import cn.logcode.library.mvp.IviewImpl;
  * @content:
  */
 public class FragmentView extends IviewImpl {
+
+    @BindView(R.id.fragment_swipe)
+    SwipeRefreshLayout mRefreshLayout;
+
+    @Override
+    public void initView() {
+        enableSwipe(false);
+    }
+
+
+    public void enableSwipe(boolean flag) {
+        if (CheckUtils.checkNotNull(mRefreshLayout)) {
+            mRefreshLayout.setEnabled(flag);
+            if(flag) mRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mContext);
+        }
+    }
+
+
     @Override
     public void loadStart(String msg) {
 
@@ -26,11 +49,6 @@ public class FragmentView extends IviewImpl {
 
     @Override
     public void loadError(int code, String errorMSg) {
-
-    }
-
-    @Override
-    public void initView() {
 
     }
 }

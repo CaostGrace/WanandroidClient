@@ -11,7 +11,7 @@ import java.util.List;
  * @class_name: ProjectListDataBean
  * @github: https://github.com/CaostGrace
  * @简书: http://www.jianshu.com/u/b252a19d88f3
- * @content: 4.2 项目列表数据 bean 
+ * @content: 4.2 项目列表数据 bean
  */
 public class ProjectListDataBean {
 
@@ -33,6 +33,19 @@ public class ProjectListDataBean {
     public int size;
     public int total;
     public List<DatasBean> datas;
+
+    @Override
+    public String toString() {
+        return "ProjectListDataBean{" +
+                "curPage=" + curPage +
+                ", offset=" + offset +
+                ", over=" + over +
+                ", pageCount=" + pageCount +
+                ", size=" + size +
+                ", total=" + total +
+                ", datas=" + datas +
+                '}';
+    }
 
     public static class DatasBean {
         /**
@@ -85,11 +98,50 @@ public class ProjectListDataBean {
         public int zan;
         public List<TagsBean> tags;
 
+
+        @Override
+        public String toString() {
+            return "DatasBean{" +
+                    "apkLink='" + apkLink + '\'' +
+                    ", author='" + author + '\'' +
+                    ", chapterId=" + chapterId +
+                    ", chapterName='" + chapterName + '\'' +
+                    ", collect=" + collect +
+                    ", courseId=" + courseId +
+                    ", desc='" + desc + '\'' +
+                    ", envelopePic='" + envelopePic + '\'' +
+                    ", fresh=" + fresh +
+                    ", id=" + id +
+                    ", link='" + link + '\'' +
+                    ", niceDate='" + niceDate + '\'' +
+                    ", origin='" + origin + '\'' +
+                    ", projectLink='" + projectLink + '\'' +
+                    ", publishTime=" + publishTime +
+                    ", superChapterId=" + superChapterId +
+                    ", superChapterName='" + superChapterName + '\'' +
+                    ", title='" + title + '\'' +
+                    ", type=" + type +
+                    ", userId=" + userId +
+                    ", visible=" + visible +
+                    ", zan=" + zan +
+                    ", tags=" + tags +
+                    '}';
+        }
+
         public static class TagsBean {
+            @Override
+            public String toString() {
+                return "TagsBean{" +
+                        "name='" + name + '\'' +
+                        ", url='" + url + '\'' +
+                        '}';
+            }
+
             /**
              * name : 项目
              * url : /project/list/1?cid=294
              */
+
 
             public String name;
             public String url;

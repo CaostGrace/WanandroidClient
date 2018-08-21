@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.main.MainActivity">
+
+
+
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:id="@+id/viewpager"
+        android:layout_above="@+id/bottom"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+    <com.yinglan.alphatabs.AlphaTabsIndicator
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_bottom_nav_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <com.yinglan.alphatabs.AlphaTabView
+            android:id="@+id/home_page"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:badgeBackgroundColor="@color/badge_color"
+            app:tabIconNormal="@mipmap/icon_main_bottom_home_normal"
+            app:tabIconSelected="@mipmap/icon_main_bottom_home_select"
+            app:tabText="首页"
+            app:tabTextSize="@dimen/text_small"
+            app:textColorNormal="@color/mian_bottom_text_normal"
+            app:textColorSelected="@color/mian_bottom_text_select"/>
+
+
+        <com.yinglan.alphatabs.AlphaTabView
+            android:id="@+id/system"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:badgeBackgroundColor="@color/badge_color"
+            app:tabIconNormal="@mipmap/icon_main_bottom_system_normal"
+            app:tabIconSelected="@mipmap/icon_main_bottom_system_select"
+            app:tabText="体系"
+            app:tabTextSize="@dimen/text_small"
+            app:textColorNormal="@color/mian_bottom_text_normal"
+            app:textColorSelected="@color/mian_bottom_text_select"/>
+
+        <com.yinglan.alphatabs.AlphaTabView
+            android:id="@+id/project"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:badgeBackgroundColor="@color/badge_color"
+            app:tabIconNormal="@mipmap/icon_main_bottom_project_normal"
+            app:tabIconSelected="@mipmap/icon_main_bottom_project_select"
+            app:tabText="项目"
+            app:tabTextSize="@dimen/text_small"
+            app:textColorNormal="@color/mian_bottom_text_normal"
+            app:textColorSelected="@color/mian_bottom_text_select"/>
+
+
+        <com.yinglan.alphatabs.AlphaTabView
+            android:id="@+id/mine"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:badgeBackgroundColor="@color/badge_color"
+            app:tabIconNormal="@mipmap/icon_main_bottom_mine_normal"
+            app:tabIconSelected="@mipmap/icon_main_bottom_mine_select"
+            app:tabText="我的"
+            app:tabTextSize="@dimen/text_small"
+            app:textColorNormal="@color/mian_bottom_text_normal"
+            app:textColorSelected="@color/mian_bottom_text_select"/>
+
+    </com.yinglan.alphatabs.AlphaTabsIndicator>
+</RelativeLayout>

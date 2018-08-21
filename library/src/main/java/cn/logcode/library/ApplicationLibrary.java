@@ -65,6 +65,7 @@ public class ApplicationLibrary extends Application {
          */
         if (builder.isOpenLitepal) {
             LitePal.initialize(application);
+
         }
 
         /**

@@ -65,8 +65,9 @@ public class HttpConstants {
      * 参数：
      * cid 分类的id，上述二级目录的id
      * 页码：拼接在链接上，从0开始。
+     * article/list/{" + PAGE + "}/json?cid={" + ID + "}
      */
-    public static final String TREE_ARTICLE = "article/list/{" + PAGE + "}/json?cid={" + ID + "}";
+    public static final String TREE_ARTICLE = "article/list/{" + PAGE + "}/json";
 
 
     //################################ 三、导航  #######################################
@@ -94,8 +95,9 @@ public class HttpConstants {
      * 参数：
      * cid 分类的id，上面项目分类接口
      * 页码：拼接在链接中，从1开始。
+     * project/list/{" + PAGE + "}/json?cid={" + ID + "}
      */
-    public static final String PROJECT_LIST_DATA = "project/list/{" + PAGE + "}/json?cid={" + ID + "}";
+    public static final String PROJECT_LIST_DATA = "project/list/{" + PAGE + "}/json";
 
 
     //################################ 五、登录与注册  #######################################

@@ -2,6 +2,7 @@ package cn.logcode.wanandroid.base;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -19,7 +20,7 @@ import cn.logcode.wanandroid.R;
  * @简书: http://www.jianshu.com/u/b252a19d88f3
  * @content:
  */
-public abstract class BaseFragment extends FragmentDelegate {
+public abstract class BaseFragment<V extends FragmentView, M extends BaseModel> extends FragmentDelegate<FragmentView, BaseModel> implements SwipeRefreshLayout.OnRefreshListener {
     private View parent;
     private FrameLayout contentContainer;
 
@@ -36,12 +37,17 @@ public abstract class BaseFragment extends FragmentDelegate {
 
 
     @Override
+    public void onRefresh() {
+
+    }
+
+    @Override
     public Class<?> getViewClass() {
-        return null;
+        return FragmentView.class;
     }
 
     @Override
     public Class<?> getModelClass() {
-        return null;
+        return BaseModel.class;
     }
 }

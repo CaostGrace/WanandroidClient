@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         mUserProfileViewModel = ViewModelProviders.of(this).get(UserProfileViewModel.class);
 
 
-        mUserProfileViewModel.init("用户名", new UserRepository((Api) HttpManager.getInstance().createApi(Api.class)));
+        mUserProfileViewModel.init("用户名", new UserRepository((Api) HttpManager.getInstance().apiService(Api.class)));
 
         mUserProfileViewModel.mBeanLiveData.observe(this, bannerBean -> {
             ToastUtil.init(this)

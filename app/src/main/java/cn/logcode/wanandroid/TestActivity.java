@@ -9,6 +9,7 @@ import cn.logcode.library.http.EntityObserver;
 import cn.logcode.library.http.HttpManager;
 import cn.logcode.library.http.RxSchedulers;
 import cn.logcode.wanandroid.bean.NullBean;
+import cn.logcode.wanandroid.bean.ProjectListDataBean;
 import cn.logcode.wanandroid.http.WanAndroidApiService;
 
 /**
@@ -32,12 +33,13 @@ public class TestActivity extends AppCompatActivity {
 
             httpManager
                     .apiService()
-                    .collectInStation(123)
+                    .projectListData(0, 152)
                     .compose(RxSchedulers.defaultCompose())
-                    .subscribe(new EntityObserver<NullBean>() {
+                    .subscribe(new EntityObserver<ProjectListDataBean>() {
                         @Override
-                        protected void onHandleSuccess(NullBean bean) {
+                        protected void onHandleSuccess(ProjectListDataBean bean) {
                             LogUtils.d("onHandleSuccess");
+                            LogUtils.d(bean.toString());
                         }
 
                         @Override

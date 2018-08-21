@@ -27,6 +27,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by CaostGrace on 2018/8/10 14:06
@@ -88,11 +89,11 @@ public interface WanAndroidApiService {
      * 2.2 知识体系下的文章
      *
      * @param page 页码
-     * @param id   文章id
+     * @param cid   文章id
      * @return
      */
     @GET(HttpConstants.TREE_ARTICLE)
-    Observable<BaseEntity<TreeArticleBean>> treeArticle(@Path(HttpConstants.PAGE) int page, @Path(HttpConstants.ID) int id);
+    Observable<BaseEntity<TreeArticleBean>> treeArticle(@Path(HttpConstants.PAGE) int page, @Query("cid") int cid);
 
 
     /**
@@ -120,7 +121,7 @@ public interface WanAndroidApiService {
      * @return
      */
     @GET(HttpConstants.PROJECT_LIST_DATA)
-    Observable<BaseEntity<ProjectListDataBean>> projectListData(@Path(HttpConstants.PAGE) int page, @Path(HttpConstants.ID) int id);
+    Observable<BaseEntity<ProjectListDataBean>> projectListData(@Path(HttpConstants.PAGE) int page, @Query("cid") int id);
 
 
     /**

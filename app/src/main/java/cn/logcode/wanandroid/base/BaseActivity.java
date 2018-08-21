@@ -2,9 +2,11 @@ package cn.logcode.wanandroid.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import cn.logcode.library.Log.LogUtils;
 import cn.logcode.library.mvp.activity.ActivityDelegate;
 import cn.logcode.library.utils.CheckUtils;
 import cn.logcode.wanandroid.R;
@@ -20,7 +22,7 @@ import cn.logcode.wanandroid.R;
  * @简书: http://www.jianshu.com/u/b252a19d88f3
  * @content:
  */
-public class BaseActivity extends ActivityDelegate {
+public class BaseActivity<V extends BaseView,M extends BaseModel> extends ActivityDelegate<BaseView,BaseModel> implements SwipeRefreshLayout.OnRefreshListener{
 
     private View parent;
     private FrameLayout contentContainer;
@@ -49,5 +51,10 @@ public class BaseActivity extends ActivityDelegate {
     @Override
     public Class<?> getModelClass() {
         return BaseModel.class;
+    }
+
+    @Override
+    public void onRefresh() {
+        LogUtils.d("onRefresh");
     }
 }

@@ -36,7 +36,7 @@ public abstract class ActivityDelegate<V extends IView, M extends IModel> extend
         return mView;
     }
 
-    protected Unbinder mUnbinder;
+    private Unbinder mUnbinder;
 
 
     @Override
@@ -77,6 +77,8 @@ public abstract class ActivityDelegate<V extends IView, M extends IModel> extend
     @Override
     public void setContentView(View view) {
         super.setContentView(view);
+        parent = view;
+
         mUnbinder = ButterKnife.bind(this);
         mView.onAttach(this, false);
     }
