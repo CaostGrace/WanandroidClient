@@ -24,11 +24,17 @@ public abstract class BaseFragment<V extends FragmentView, M extends BaseModel> 
     private View parent;
     private FrameLayout contentContainer;
 
+    protected V mView;
+    protected M mModel;
+
+
     @Override
     public View getLayoutId() {
         parent = View.inflate(getContext(), R.layout.base_fragment, null);
         contentContainer = parent.findViewById(R.id.content_container);
         contentContainer.addView(View.inflate(getContext(), childLayoutId(), null), 0);
+        mView = (V) super.mView;
+        mModel = (M) super.mModel;
         return parent;
     }
 

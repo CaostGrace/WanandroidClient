@@ -9,6 +9,8 @@
 
     <color name="badge_color">#ff000d</color>
 
+    <color name="text_normal">#989898</color>
+
     <color name="mian_bottom_text_normal">#989898</color>
     <color name="mian_bottom_text_select">#2AB25A</color>
 

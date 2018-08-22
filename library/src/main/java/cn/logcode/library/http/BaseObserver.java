@@ -96,6 +96,6 @@ public abstract class BaseObserver<T> implements Observer<T> {
      * @param msg
      */
     protected void onHandleError(int code, String msg) {
-
+        LogUtils.d("code: " + code + " errorMsg: " + msg);
     }
 }

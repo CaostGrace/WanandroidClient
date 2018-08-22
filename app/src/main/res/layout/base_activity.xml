@@ -33,6 +33,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:maxWidth="150dp"
                 android:visibility="gone"
                 android:layout_marginLeft="6dp"
                 android:text="title"
@@ -49,7 +52,9 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="title"
-            android:visibility="gone"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:maxWidth="200dp"
             android:textColor="@color/white"
             android:textSize="@dimen/text_big"/>
 

@@ -134,6 +134,10 @@ dependencies {
 
     //底部导航栏
     implementation 'com.yinglan.alphatabs:library:1.0.8'
+    //banner
+    implementation rootProject.ext.dependencies.banner
+    //一个recyclerview的适配器
+    implementation rootProject.ext.dependencies.baseRecyclerViewAdapterHelper
 
     api project(":library")
 }

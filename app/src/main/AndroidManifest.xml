@@ -4,6 +4,8 @@
           package="cn.logcode.wanandroid">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <!-- if you want to load images from a file OR from the internet -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".App"
@@ -21,7 +23,6 @@
             android:screenOrientation="portrait">
 
 
-
         </activity>
 
 
@@ -36,7 +37,10 @@
 
         </activity>
 
-
+        <activity
+            android:name=".ui.activity.WebActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
 
     </application>

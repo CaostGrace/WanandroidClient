@@ -15,4 +15,7 @@ public class Constants {
 
     public static final String BASE_URL = "http://www.wanandroid.com/";
 
+    
+    public static final String WEBVIEW_URL = "webview_url";
+
 }

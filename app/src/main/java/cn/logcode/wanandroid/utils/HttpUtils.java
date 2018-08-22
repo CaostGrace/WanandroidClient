@@ -22,7 +22,7 @@ public class HttpUtils {
     private HttpUtils() {
     }
 
-    public static HttpManager get() {
+    public static HttpManager<WanAndroidApiService> get() {
         httpManager = HttpManager.getInstance();
         return httpManager;
     }
@@ -36,9 +36,5 @@ public class HttpUtils {
         }
         return instance;
     }
-
-
-
-
 
 }

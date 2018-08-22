@@ -7,6 +7,8 @@ import java.io.IOException;
 import cn.logcode.library.ApplicationLibrary;
 import cn.logcode.library.config.HttpConfig;
 import cn.logcode.library.http.HttpManager;
+import cn.logcode.library.utils.imageload.ImageLoader;
+import cn.logcode.library.utils.imageload.LoadStrategy;
 import cn.logcode.wanandroid.config.AppConfig;
 import cn.logcode.wanandroid.config.Constants;
 import cn.logcode.wanandroid.http.CookieManager;
@@ -45,6 +47,8 @@ public class App extends Application {
                 .build();
 
         httpManager.apiService(WanAndroidApiService.class);
+
+        ImageLoader.init(LoadStrategy.defaule);
 
     }
 }

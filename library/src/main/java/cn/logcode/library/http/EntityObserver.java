@@ -51,5 +51,9 @@ public abstract class EntityObserver<T> extends BaseObserver<BaseEntity<T>> {
      */
     protected abstract void onHandleSuccess(T t);
 
+    @Override
+    protected void onHandleError(int code, String msg) {
+        super.onHandleError(code, msg);
 
+    }
 }

@@ -27,12 +27,17 @@ public class BaseActivity<V extends BaseView,M extends BaseModel> extends Activi
     private View parent;
     private FrameLayout contentContainer;
 
+    protected V mView;
+    protected M mModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         parent = View.inflate(this, R.layout.base_activity, null);
         contentContainer = parent.findViewById(R.id.content_container);
+        mView = (V) super.mView;
+        mModel = (M) super.mModel;
+
     }
 
     @Override
@@ -41,6 +46,7 @@ public class BaseActivity<V extends BaseView,M extends BaseModel> extends Activi
             contentContainer.addView(View.inflate(this, layoutResID, null), 0);
         }
         super.setContentView(parent);
+
     }
 
     @Override

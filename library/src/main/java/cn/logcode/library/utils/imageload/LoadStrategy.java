@@ -18,6 +18,9 @@ import cn.logcode.library.R;
  */
 public interface LoadStrategy {
 
+    LoadStrategy defaule = new GlideImageLoaderStrategy();
+
+
     /**
      * 根据本地路径或网络路径加载圆形图片
      *

@@ -1,4 +1,4 @@
-package cn.logcode.wanandroid.ui.fragment;
+package cn.logcode.wanandroid.ui.fragment.project;
 
 import android.os.Bundle;
 
@@ -6,20 +6,20 @@ import cn.logcode.wanandroid.R;
 import cn.logcode.wanandroid.base.BaseFragment;
 
 /**
- * Created by CaostGrace on 2018/8/21 13:55
+ * Created by CaostGrace on 2018/8/21 14:01
  *
  * @author caost
  * @project_name: wanandroid
  * @package_name: cn.logcode.wanandroid.ui.fragment
- * @class_name: HomePageFragment
+ * @class_name: MainProjectFragment
  * @github: https://github.com/CaostGrace
  * @简书: http://www.jianshu.com/u/b252a19d88f3
- * @content: 首页fragment
+ * @content: 项目project
  */
-public class MainHomePageFragment extends BaseFragment {
+public class MainProjectFragment extends BaseFragment {
     @Override
     public int childLayoutId() {
-        return R.layout.main_fragment_home;
+        return R.layout.main_fragment_project;
     }
 
     @Override

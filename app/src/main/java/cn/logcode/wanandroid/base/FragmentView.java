@@ -23,6 +23,16 @@ public class FragmentView extends IviewImpl {
     @BindView(R.id.fragment_swipe)
     SwipeRefreshLayout mRefreshLayout;
 
+    /**
+     * 刷新结束
+     */
+    public void refreshEnd() {
+        if (CheckUtils.checkNotNull(mRefreshLayout)) {
+            mRefreshLayout.setRefreshing(false);
+        }
+    }
+
+
     @Override
     public void initView() {
         enableSwipe(false);
@@ -32,7 +42,8 @@ public class FragmentView extends IviewImpl {
     public void enableSwipe(boolean flag) {
         if (CheckUtils.checkNotNull(mRefreshLayout)) {
             mRefreshLayout.setEnabled(flag);
-            if(flag) mRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mContext);
+            if (flag)
+                mRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mDelegate);
         }
     }
 

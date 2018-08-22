@@ -47,6 +47,9 @@ public abstract class DefaultObserver<T> extends BaseObserver<T> {
      */
     protected abstract void onHandleSuccess(T t);
 
+    @Override
+    protected void onHandleError(int code, String msg) {
+        super.onHandleError(code, msg);
 
-
+    }
 }

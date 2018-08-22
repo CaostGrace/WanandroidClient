@@ -12,7 +12,7 @@ package cn.logcode.library.callback;
  * @content:
  */
 public abstract class CallBack<T> {
-    public abstract void success();
+    public void success(){}
 
     public void onError(int code, String message) {
 

@@ -13,10 +13,10 @@ import cn.logcode.wanandroid.R;
 import cn.logcode.wanandroid.adapter.MainViewPagerAdapter;
 import cn.logcode.wanandroid.base.BaseFragment;
 import cn.logcode.wanandroid.base.BaseView;
-import cn.logcode.wanandroid.ui.fragment.MainHomePageFragment;
-import cn.logcode.wanandroid.ui.fragment.MainMineFragment;
-import cn.logcode.wanandroid.ui.fragment.MainProjectFragment;
-import cn.logcode.wanandroid.ui.fragment.MainSystemFragment;
+import cn.logcode.wanandroid.ui.fragment.home.MainHomePageFragment;
+import cn.logcode.wanandroid.ui.fragment.mine.MainMineFragment;
+import cn.logcode.wanandroid.ui.fragment.project.MainProjectFragment;
+import cn.logcode.wanandroid.ui.fragment.system.MainSystemFragment;
 
 /**
  * Created by CaostGrace on 2018/8/14 13:50
