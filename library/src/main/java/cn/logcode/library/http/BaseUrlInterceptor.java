@@ -29,7 +29,7 @@ public class BaseUrlInterceptor implements Interceptor {
         String dynamic = request.header(HttpConfig.DYNAMIC_NAME);
 
 
-        if (CheckUtils.checkNullString(dynamic)) {
+        if (!CheckUtils.checkNullString(dynamic)) {
             Request interRequest;
 
             String url = request.url().toString();

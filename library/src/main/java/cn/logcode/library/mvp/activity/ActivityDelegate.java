@@ -1,5 +1,6 @@
 package cn.logcode.library.mvp.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -38,6 +39,11 @@ public abstract class ActivityDelegate<V extends IView, M extends IModel> extend
 
     private Unbinder mUnbinder;
 
+
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

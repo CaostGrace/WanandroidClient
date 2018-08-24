@@ -24,8 +24,9 @@ android {
         testInstrumentationRunner rootProject.ext.dependencies.AndroidJUnitRunner
 
         applicationId rootProject.ext.android.applicationId
-//        multiDexEnabled true
 
+        multiDexEnabled true
+        
         ndk {
             abiFilters 'armeabi-v7a', 'x86', 'arm64-v8a'
         }
@@ -100,8 +101,6 @@ android {
         }
     }
 
-
-
     //指定打包后apk文件名称
     android.applicationVariants.all { variant ->
         variant.outputs.all {
@@ -138,6 +137,21 @@ dependencies {
     implementation rootProject.ext.dependencies.banner
     //一个recyclerview的适配器
     implementation rootProject.ext.dependencies.baseRecyclerViewAdapterHelper
+    //卡片布局
+    implementation rootProject.ext.dependencies.cardview_v7
+    //状态栏工具
+    implementation 'com.jaeger.statusbarutil:library:1.5.1'
+
+    //tab layout
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
+
+    //eventBus
+    implementation rootProject.ext.dependencies.eventbus
+    
+
+
+
 
     api project(":library")
 }

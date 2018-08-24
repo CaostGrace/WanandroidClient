@@ -18,6 +18,7 @@
         android:layout_height="3dip"
         android:max="100"
         android:progress="0"
+        android:progressDrawable="@drawable/progress_background"
         android:background="@color/colorAccent"
         android:visibility="gone"/>
 

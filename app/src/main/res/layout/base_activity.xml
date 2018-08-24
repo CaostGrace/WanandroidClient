@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -52,11 +52,31 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="title"
+            android:visibility="gone"
             android:maxLines="1"
             android:ellipsize="end"
             android:maxWidth="200dp"
             android:textColor="@color/white"
             android:textSize="@dimen/text_big"/>
+
+
+        <TextView
+            android:id="@+id/toolbar_search"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/base_search_shape"
+            android:layout_marginRight="50dp"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:visibility="gone"
+            android:clickable="true"
+            android:textSize="@dimen/text_small"
+            android:textColorHint="@color/text_normal"
+            android:text="search"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+
 
 
         <ImageView
@@ -76,7 +96,7 @@
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/toolBar_height">
+        android:layout_below="@+id/toolbar">
 
         <FrameLayout
             android:id="@+id/content_container"
@@ -87,4 +107,4 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
-</FrameLayout>
+</RelativeLayout>

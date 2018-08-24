@@ -16,6 +16,7 @@ import cn.logcode.wanandroid.base.BaseView;
 import cn.logcode.wanandroid.ui.fragment.home.MainHomePageFragment;
 import cn.logcode.wanandroid.ui.fragment.mine.MainMineFragment;
 import cn.logcode.wanandroid.ui.fragment.project.MainProjectFragment;
+import cn.logcode.wanandroid.ui.fragment.search.MainSearchFragment;
 import cn.logcode.wanandroid.ui.fragment.system.MainSystemFragment;
 
 /**
@@ -47,8 +48,10 @@ public class MainView extends BaseView {
 
     MainHomePageFragment mHomePageFragment;
     MainSystemFragment mSystemFragment;
+    MainSearchFragment mSearchFragment;
     MainProjectFragment mProjectFragment;
     MainMineFragment mMineFragment;
+
 
     MainViewPagerAdapter mViewPagerAdapter;
 
@@ -70,11 +73,15 @@ public class MainView extends BaseView {
 
         mHomePageFragment = new MainHomePageFragment();
         mSystemFragment = new MainSystemFragment();
+        mSearchFragment = new MainSearchFragment();
         mProjectFragment = new MainProjectFragment();
         mMineFragment = new MainMineFragment();
 
         mBaseFragments.add(mHomePageFragment);
         mBaseFragments.add(mSystemFragment);
+
+//        mBaseFragments.add(mSearchFragment);
+
         mBaseFragments.add(mProjectFragment);
         mBaseFragments.add(mMineFragment);
 

@@ -2,9 +2,14 @@ package cn.logcode.wanandroid.base;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import cn.logcode.library.mvp.fragment.FragmentDelegate;
 import cn.logcode.wanandroid.R;
@@ -27,9 +32,9 @@ public abstract class BaseFragment<V extends FragmentView, M extends BaseModel> 
     protected V mView;
     protected M mModel;
 
-
     @Override
     public View getLayoutId() {
+
         parent = View.inflate(getContext(), R.layout.base_fragment, null);
         contentContainer = parent.findViewById(R.id.content_container);
         contentContainer.addView(View.inflate(getContext(), childLayoutId(), null), 0);
@@ -47,6 +52,8 @@ public abstract class BaseFragment<V extends FragmentView, M extends BaseModel> 
 
     }
 
+
+
     @Override
     public Class<?> getViewClass() {
         return FragmentView.class;
@@ -55,5 +62,10 @@ public abstract class BaseFragment<V extends FragmentView, M extends BaseModel> 
     @Override
     public Class<?> getModelClass() {
         return BaseModel.class;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

@@ -27,8 +27,7 @@
 -keepclassmembernames,allowobfuscation interface * {
     @retrofit2.http.* <methods>;
 }
-# Ignore annotation used for build tooling.
--dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
 
 
 #bugly 混淆

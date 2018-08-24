@@ -1,16 +1,17 @@
 package cn.logcode.wanandroid.base;
 
+import android.app.Activity;
+import android.support.annotation.IntRange;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jaeger.library.StatusBarUtil;
+
 import butterknife.BindView;
-import cn.logcode.library.Log.LogUtils;
 import cn.logcode.library.mvp.IviewImpl;
 import cn.logcode.library.utils.CheckUtils;
 import cn.logcode.wanandroid.R;
@@ -34,8 +35,9 @@ public class BaseView extends IviewImpl {
     public void enableSwipe(boolean flag) {
         if (CheckUtils.checkNotNull(mSwipeRefreshLayout)) {
             mSwipeRefreshLayout.setEnabled(flag);
-            if (flag)
+            if (flag) {
                 mSwipeRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mContext);
+            }
         }
     }
 
@@ -89,11 +91,9 @@ public class BaseView extends IviewImpl {
             if (CheckUtils.checkNotNull(subTitle) && !subTitle.equals("")) {
                 showLeftTitle(subTitle);
             }
-            toolbarLeft.setOnClickListener((view) -> {
-                if (CheckUtils.checkNotNull(listener)) {
-                    listener.onClick(view);
-                }
-            });
+            if (CheckUtils.checkNotNull(listener)) {
+                toolbarLeft.setOnClickListener(listener);
+            }
         }
     }
 
@@ -163,9 +163,7 @@ public class BaseView extends IviewImpl {
             iconRight.setVisibility(View.VISIBLE);
 
             if (CheckUtils.checkNotNull(listener)) {
-                iconRight.setOnClickListener((view) -> {
-                    listener.onClick(view);
-                });
+                iconRight.setOnClickListener(listener);
             }
 
         }
@@ -174,6 +172,31 @@ public class BaseView extends IviewImpl {
     public void hideIconRight() {
         if (CheckUtils.checkNotNull(iconRight)) {
             iconRight.setVisibility(View.GONE);
+        }
+    }
+
+
+    /**
+     * 搜索
+     */
+    @BindView(R.id.toolbar_search)
+    TextView toolbarSearch;
+
+    public void showSearch(String text, View.OnClickListener listener) {
+        if (CheckUtils.checkNotNull(toolbarSearch)) {
+            toolbarSearch.setHint(text + "");
+            toolbarSearch.setVisibility(View.VISIBLE);
+
+            if (CheckUtils.checkNotNull(listener)) {
+                toolbarSearch.setOnClickListener(listener);
+            }
+
+        }
+    }
+
+    public void hideSearch() {
+        if (CheckUtils.checkNotNull(toolbarSearch)) {
+            toolbarSearch.setVisibility(View.GONE);
         }
     }
 
@@ -198,5 +221,17 @@ public class BaseView extends IviewImpl {
 
     }
 
+
+    public void setToolbarBackgroundColor(int color) {
+        setToolbarBackgroundColor(color, 130);
+    }
+
+
+    public void setToolbarBackgroundColor(int color, @IntRange(from = 0, to = 255) int statusBarAlpha) {
+        if (CheckUtils.checkNotNull(mToolbar) && CheckUtils.checkNotNull(mDelegate)) {
+            mToolbar.setBackgroundColor(color);
+            StatusBarUtil.setColor(mDelegate.getActivity(), color, statusBarAlpha);
+        }
+    }
 
 }

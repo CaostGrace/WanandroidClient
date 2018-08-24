@@ -30,6 +30,7 @@ import cn.logcode.library.utils.CheckUtils;
 public abstract class FragmentDelegate<V extends IView, M extends IModel> extends Fragment implements IDelegate {
 
 
+
     protected V mView;
     protected M mModel;
 
@@ -85,6 +86,10 @@ public abstract class FragmentDelegate<V extends IView, M extends IModel> extend
     }
 
     public abstract void init(Bundle savedInstanceState);
+
+
+
+
 
     @Override
     public void onDetach() {

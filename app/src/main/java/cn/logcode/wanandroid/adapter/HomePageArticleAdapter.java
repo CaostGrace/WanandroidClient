@@ -1,6 +1,9 @@
 package cn.logcode.wanandroid.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -32,11 +35,17 @@ public class HomePageArticleAdapter extends BaseQuickAdapter<ArticlePageList.Dat
     @Override
     protected void convert(BaseViewHolder helper, ArticlePageList.DatasBean item) {
         helper.setVisible(R.id.item_image, false);
-        helper.setText(R.id.item_title, item.title + "");
-        helper.setText(R.id.item_desc, item.desc + "");
+        helper.setText(R.id.item_title, item.title);
+//        helper.setText(R.id.item_desc, item.desc);
         helper.setText(R.id.item_author, item.author);
-        helper.setText(R.id.item_category, item.superChapterName + "/" + item.chapterName);
+        helper.setText(R.id.item_category,  item.chapterName);
         helper.setText(R.id.item_time, item.niceDate);
+
+
+//        if(CheckUtils.checkNullString(item.desc)){
+//            helper.setVisible(R.id.item_desc, false);
+//        }
+
 
         if (CheckUtils.checkNotNull(item.envelopePic) && !item.envelopePic.equals("")) {
             helper.setVisible(R.id.item_image, true);
@@ -49,7 +58,19 @@ public class HomePageArticleAdapter extends BaseQuickAdapter<ArticlePageList.Dat
             helper.setImageResource(R.id.collection_image, R.mipmap.icon_uncollection);
         }
 
+        helper.getView(R.id.item_collection).setOnClickListener((view -> {
+            if (CheckUtils.checkNotNull(collectionLinstener)) {
+                collectionLinstener.onClick(view);
+            }
+        }));
+
 
     }
 
+
+    private View.OnClickListener collectionLinstener;
+
+    public void setCollectionLinstener(View.OnClickListener collectionLinstener) {
+        this.collectionLinstener = collectionLinstener;
+    }
 }

@@ -1,5 +1,6 @@
 package cn.logcode.library.mvp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 
@@ -23,4 +24,5 @@ public interface IDelegate {
 
     Context getContext();
 
+    Activity getActivity();
 }

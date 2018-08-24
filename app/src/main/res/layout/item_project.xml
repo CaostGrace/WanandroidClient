@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp">
+
+        <ImageView
+            android:layout_margin="4dp"
+            android:id="@+id/project_image"
+            android:layout_width="100dp"
+            android:layout_centerVertical="true"
+            android:layout_height="150dp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_toRightOf="@+id/project_image"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="@dimen/text_small"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="title"
+            android:id="@+id/project_title"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_toRightOf="@+id/project_image"
+            android:layout_marginLeft="4dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:textSize="@dimen/text_small"
+            android:textColor="@color/text_normal"
+            android:text="desc"
+            android:id="@+id/project_desc"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_toRightOf="@+id/project_image"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginBottom="6dp"
+            android:layout_alignParentBottom="true"
+            android:layout_height="40dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="@dimen/text_min"
+                android:textColor="@color/text_normal"
+                android:id="@+id/project_time"
+                android:text="2018-01-02"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_min"
+                android:gravity="center_vertical"
+                android:text="author"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:id="@+id/project_author"
+                android:textColor="@color/text_normal"
+                android:layout_marginRight="4dp"
+                android:layout_height="match_parent"/>
+
+
+            <ImageView
+                android:layout_width="30dp"
+                android:id="@+id/project_collect"
+                android:layout_marginRight="4dp"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:src="@mipmap/icon_uncollection"
+                android:layout_height="30dp"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+</android.support.v7.widget.CardView>

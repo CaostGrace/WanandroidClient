@@ -1,6 +1,9 @@
 package cn.logcode.wanandroid;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import java.io.IOException;
 
@@ -32,12 +35,15 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
+
+
         ApplicationLibrary.Builder builder = new ApplicationLibrary.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .isOpenLitepal(true)
                 .buglyId("")
                 .build();
         ApplicationLibrary.init(this, builder);
+
 
 
         HttpManager httpManager = new HttpManager
@@ -50,5 +56,11 @@ public class App extends Application {
 
         ImageLoader.init(LoadStrategy.defaule);
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }

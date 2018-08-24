@@ -3,7 +3,6 @@ package cn.logcode.library.utils.imageload;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.squareup.haha.perflib.Instance;
 
 import cn.logcode.library.utils.CheckUtils;
 

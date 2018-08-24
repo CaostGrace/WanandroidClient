@@ -55,6 +55,24 @@
             app:textColorNormal="@color/mian_bottom_text_normal"
             app:textColorSelected="@color/mian_bottom_text_select"/>
 
+
+
+        <!--<com.yinglan.alphatabs.AlphaTabView-->
+            <!--android:id="@+id/search"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:layout_weight="1"-->
+            <!--app:badgeBackgroundColor="@color/badge_color"-->
+            <!--app:tabIconNormal="@mipmap/icon_main_bottom_search_normal"-->
+            <!--app:tabIconSelected="@mipmap/icon_main_bottom_search_select"-->
+            <!--app:tabText="搜索"-->
+            <!--app:tabTextSize="@dimen/text_small"-->
+            <!--app:textColorNormal="@color/mian_bottom_text_normal"-->
+            <!--app:textColorSelected="@color/mian_bottom_text_select"/>-->
+
+
+
         <com.yinglan.alphatabs.AlphaTabView
             android:id="@+id/project"
             android:layout_width="0dp"

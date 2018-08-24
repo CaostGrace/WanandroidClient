@@ -9,6 +9,7 @@ import cn.logcode.library.http.RxSchedulers;
 import cn.logcode.library.mvp.IModelImpl;
 import cn.logcode.wanandroid.bean.ArticlePageList;
 import cn.logcode.wanandroid.bean.Banner;
+import cn.logcode.wanandroid.bean.ProjectListDataBean;
 import cn.logcode.wanandroid.utils.HttpUtils;
 
 /**
@@ -69,5 +70,29 @@ public class BaseModel extends IModelImpl {
                 }));
     }
 
+
+    /**
+     * 获取项目分类详情的列表
+     *
+     * @param page
+     * @param cid
+     * @param callBack
+     */
+    public void getProjectDetailList(int page, int cid, CallBack<ProjectListDataBean> callBack) {
+        addDisposable(HttpUtils.get().apiService().projectListData(page, cid)
+                .compose(RxSchedulers.compose())
+                .subscribeWith(new DefaultObserver<ProjectListDataBean>() {
+                    @Override
+                    protected void onHandleSuccess(ProjectListDataBean bean) {
+                        callBack.data(bean);
+                    }
+
+                    @Override
+                    protected void onHandleError(int code, String msg) {
+                        super.onHandleError(code, msg);
+                        callBack.onError(code, msg);
+                    }
+                }));
+    }
 
 }

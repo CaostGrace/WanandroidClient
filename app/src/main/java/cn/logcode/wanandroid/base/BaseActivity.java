@@ -6,6 +6,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import cn.logcode.library.Log.LogUtils;
 import cn.logcode.library.mvp.activity.ActivityDelegate;
 import cn.logcode.library.utils.CheckUtils;
@@ -22,7 +26,7 @@ import cn.logcode.wanandroid.R;
  * @简书: http://www.jianshu.com/u/b252a19d88f3
  * @content:
  */
-public class BaseActivity<V extends BaseView,M extends BaseModel> extends ActivityDelegate<BaseView,BaseModel> implements SwipeRefreshLayout.OnRefreshListener{
+public class BaseActivity<V extends BaseView, M extends BaseModel> extends ActivityDelegate<BaseView, BaseModel> implements SwipeRefreshLayout.OnRefreshListener {
 
     private View parent;
     private FrameLayout contentContainer;
@@ -30,9 +34,13 @@ public class BaseActivity<V extends BaseView,M extends BaseModel> extends Activi
     protected V mView;
     protected M mModel;
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         parent = View.inflate(this, R.layout.base_activity, null);
         contentContainer = parent.findViewById(R.id.content_container);
         mView = (V) super.mView;
@@ -62,5 +70,10 @@ public class BaseActivity<V extends BaseView,M extends BaseModel> extends Activi
     @Override
     public void onRefresh() {
         LogUtils.d("onRefresh");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

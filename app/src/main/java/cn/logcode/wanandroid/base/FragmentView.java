@@ -1,6 +1,9 @@
 package cn.logcode.wanandroid.base;
 
+import android.support.annotation.IntRange;
 import android.support.v4.widget.SwipeRefreshLayout;
+
+import com.jaeger.library.StatusBarUtil;
 
 import butterknife.BindView;
 import cn.logcode.library.mvp.IviewImpl;
@@ -62,4 +65,5 @@ public class FragmentView extends IviewImpl {
     public void loadError(int code, String errorMSg) {
 
     }
+
 }

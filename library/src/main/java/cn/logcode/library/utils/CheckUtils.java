@@ -21,9 +21,9 @@ public class CheckUtils {
      */
     public static boolean checkNullString(String str) {
         if (str == null || str.equals("")) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
